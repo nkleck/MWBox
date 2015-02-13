@@ -8,4 +8,4 @@
 
 cd /vagrant
 
-bash /vagrant/config/initial_build.sh
+bash /vagrant/config/install.sh
