@@ -14,6 +14,7 @@ https://www.vagrantup.com/
 download the MWBox package, use the icon at the side of the page or 
 
 $ git clone https://github.com/nkleck/MWBox.git
+- if you dont have git: $ sudo apt-get install git
 
 
 in terminal drive to the MWBox directory
