@@ -15,27 +15,33 @@ download the MWBox package, use the icon at the side of the page or
 
 $ git clone https://github.com/nkleck/MWBox.git
 
+
 in terminal drive to the MWBox directory
 
 $ vagrant up
 
 - a long script runs, sets up the box
 
+
 ssh into the box
 
 $ vagrant ssh
+
 
 if you have already created the box, the second time you bring up the box, it will not go through the long setup script. So if you want to check for updates to the box and tools, after you did 'vagrant up' run:
 
 $ vagrant provision
 
+
 to close the session
 
 $ exit
 
+
 to stop the vm
 
 $ vagrant halt
+
 
 to destroy the vm
 
