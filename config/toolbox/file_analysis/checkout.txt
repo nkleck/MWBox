@@ -1,0 +1,9 @@
+check out:
+
+strings
+
+comes with ubuntu
+
+streams
+
+downloadable, but this package should have both installed. 
