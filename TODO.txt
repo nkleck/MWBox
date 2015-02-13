@@ -1,0 +1,22 @@
+TO DO
+
+- Need to figure out a way to make it only run updates and upgrade after the first install
+	- when you reboot the box, it does not run the script again, need to execute
+		$ vagrant provisioning IOT run script again, maybe add that to the Vagrantfile?
+		- the script checks for updates and upgrades for some programs. 
+		- ALSO, if this is the case, it wont run the other install scripts either
+			- which may be needed to install programs
+			- OR JUST PUT IN THE README HOW TO RUN THE UPDATE
+				$ vagrant provision
+
+
+
+
+- then start working on scripts. 
+  - so a bunch of github repo's, not tying them to this repo, but will dl then upon install
+    - this means modifying the script with PATH so they dl and install the ones that need setup
+    
+
+
+
+- then clean up script. hide files, and upload to github
