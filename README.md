@@ -10,10 +10,13 @@ https://www.vagrantup.com/
 
 # Build it
 download the MWBox package, use the icon at the side of the page or 
+
 $ git clone https://github.com/nkleck/MWBox.git
 
 in terminal drive to the MWBox directory
+
 $ vagrant up
+
 - a long script runs, sets up the box
 
 ssh into the box
