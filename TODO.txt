@@ -23,14 +23,11 @@ TO DO
 
 
 Things being needed done:
-
-add  malware sandbox stuff
-
-
-install WINE?
-
-create a cleanup scrip that is last ran in bootstrap
-
-cleans up file locations
-
-moves setup scripts to config folder, hides config folder
+- fix yara-python portion of script
+- fix unpacking clamav script
+- add some tools to tool.sh script
+- add  malware sandbox stuff
+- install WINE?
+- create a cleanup scrip that is last ran in bootstrap
+- cleans up file locations
+- moves setup scripts to config folder, hide config folder
