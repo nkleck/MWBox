@@ -16,7 +16,7 @@ exec 2> >(tee -a $LOG_PATH/install-errors.log)
 
 # Installing Yara
 install_yara() {
-    if [ -f $UB_PATH/yara ]; then
+    if [ -f /usr/local/bin/yara ]; then
         echo yara is already installed
     else
         echo Installing yara. . .
