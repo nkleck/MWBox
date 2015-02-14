@@ -119,7 +119,7 @@ install_tor() {
 
 # Installing Yara
 install_yara() {
-    if [ -f /usr/local/bin/yara ] OR [ -f $UB_PATH/yara ]; then
+    if [ -f /usr/local/bin/yara ]; then
 #ask marcus if the above is possible
         echo yara is already installed
     else
