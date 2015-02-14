@@ -136,9 +136,9 @@ install_yara() {
 #        cd $MAIN_PATH/dev/yara/yara-python/
 #        python setup.py build
 #        python setup.py install
-#-OR- TRY sudo pip install yara-python, but the yara developers jacked up their code at the moment
-# neither build try of yara-python works at the moment, damn devleopers
-# might be fixed, but i had to go into scripts and fix it myself, how long until the git will have it?
+#-OR- TRY sudo pip install yara-python, but the yara-python code not working at moment, check it later, see if they fixed
+# neither build try of yara-python works at the moment
+# might be fixed, but i had to go into scripts and fix it myself,
 
     cd
     echo ——————————————————————————————————————————————— >> $LOG_PATH/install.log
