@@ -17,3 +17,10 @@ Things being needed done:
 
 - apt-get install whois
 - apt-get install dnsutils
+
+DNSMap
+$ wgie7 http://dnsmap.googlecode.com/files/dnsmap-0.30.tar.gz
+$ tar -xvzf dnsmap-0.30.tar.gz
+$ cd dnsmap-0.30
+$ make
+$ sudo make install
