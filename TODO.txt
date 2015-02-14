@@ -14,3 +14,6 @@ Things being needed done:
 - create a cleanup scrip that is last ran in bootstrap
 - cleans up file locations
 - moves setup scripts to config folder, hide config folder
+
+- apt-get install whois
+- apt-get install dnsutils
