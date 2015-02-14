@@ -31,7 +31,7 @@ unpack_clamav() {
     #define local variables
     CLAMDB_PATH=$MAIN_PATH/dbfiles/clamdb
     CLSIG_PATH=/var/lib/clamav
-    SIGT=sigtool -u /var/lib/clamav
+    SIGT="sigtool -u /var/lib/clamav"
     EMAIN="Unpacking clamav main.cvd signatures failed\nYou will need to run sudo apt-get install clamav-freshclam again\nAnd run sigtool -u /var/lib/clamav/main.cvd OR daily.cld"
     EDAILY="Unpacking clamav daily.cvd signatures failed\nYou will need to run sudo apt-get install clamav-freshclam again\nAnd run sigtool -u /var/lib/clamav/daily.cvd OR daily.cld"
 
