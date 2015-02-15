@@ -42,6 +42,8 @@ modify_wget() {
 
 echo Installing scripts...
 
+$INST html2text
+
 #Install Stream
 install_stream() {
     if [ -f /usr/bin/stream ]; then
@@ -97,13 +99,23 @@ analyze_pdf(){
         rm pdfid_v0_2_1.zip
     fi
     if [ -f $TOOL_PATH/pdf_analysis/AnalyzePDF/AnalyzePDF.py ]; then
-        continue
+        echo AnalyzePDF already installed
     else
         cd $TOOL_PATH/pdf_analysis
         git clone https://github.com/hiddenillusion/AnalyzePDF.git
-        sed -i -e "s%rules = '/usr/local/etc/capabilities.yara' # REMnux location%/rules = '\/vagrant\/toolbox\/pdf_analysis\/AnalyzePDF\/pdf_rules.yara'/g" /vagrant/toolbox/pdf_analysis/AnalyzePDF/AnalyzePDF.py
-# this script not working, i think its import yara thats failing. although yara-python is installed.
+        sed -i -e "s%rules = '/usr/local/etc/capabilities.yara' # REMnux location%/rules = 'pdf_rules.yara'/g" /vagrant/toolbox/pdf_analysis/AnalyzePDF/AnalyzePDF.py
+# this script not working, although yara-python is installed.
+#   - the script works, here is what i had to do to get it working:
+#       sudo su
+#       echo "/usr/local/lib/" >> /etc/ld.so.conf
+#       ldconfig
+# so the script is failing on the "try: import yara", so when i did the above,
+#       yara-python worked and the script worked. is there a better/safer way? i tried with sudo and permission denied
+#   -rw-r--r-- 1 root root 50 Feb 15 19:46 /etc/ld.so.conf
+#   i could chown to vagrant:vagrant, echo the line, and then back to root:root
+
 # the sed replacment line is failing as well
+    fi
 }
 
 
@@ -150,5 +162,6 @@ install_proxychains() {
 modify_wget
 install_stream
 install_pdf
+analyze_pdf
 install_nmap
 install_proxychains

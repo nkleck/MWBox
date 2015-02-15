@@ -67,13 +67,14 @@ pdftk
 - uncompress pdf streams for viewing in texteditor
 $ pdftk file.pdf output file.unc.pdf uncompress
 
-
+AnalyzePDF
+$ python AnalyzePDF.py <test>.pdf
 
 pdfxray_lite
-
-python pdfxray_lite -f <file> -r report
-
+$ python pdfxray_lite -f <file> -r report
 -drive to the report.html file and open it (a browser will open it)
+-or use html2text to convert it and read
+    - html2text report >> output.txt
 
 
 
