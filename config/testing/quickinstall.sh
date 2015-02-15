@@ -13,7 +13,7 @@ initial_setup() {
 
     apt-get update
     apt-get -y upgrade
-    $INST git libtool automake
+    $INST git libtool automake unzip
 
 }
 

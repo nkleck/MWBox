@@ -39,7 +39,7 @@ initial_setup() {
     echo Installation was ran on `date` >> $LOG_PATH/install.log
     apt-get update
     apt-get -y upgrade
-    $INST git libtool automake
+    $INST git libtool automake unzip
     echo ——————————————————————————————————————————————— >> $LOG_PATH/install.log
     echo   >> $LOG_PATH/install.log
     echo Initial setup complete. . . lots more to go!
@@ -119,8 +119,7 @@ install_tor() {
 
 # Installing Yara
 install_yara() {
-    if [ -f /usr/local/bin/yara ]; then
-#ask marcus if the above is possible
+    if [ -f $UB_PATH/yara ]; then
         echo yara is already installed
     else
         echo Installing yara. . .
@@ -132,19 +131,28 @@ install_yara() {
         make
         make install
     fi
-#    if [ xxxxxxxx yara-python ]; then
-#        cd $MAIN_PATH/dev/yara/yara-python/
-#        python setup.py build
-#        python setup.py install
-#-OR- TRY sudo pip install yara-python, but the yara-python code not working at moment, check it later, see if they fixed
-# neither build try of yara-python works at the moment
-# might be fixed, but i had to go into scripts and fix it myself,
-
+    if [ -f /usr/local/lib/python2.7/dist-packages/yara_python-3.3.0.egg-info ]; then
+        echo yara-python already installed
+    else
+        cd $MAIN_PATH/dev/yara/yara-python/
+        python setup.py build
+        python setup.py install
+        if [ -f /usr/local/lib/python2.7/dist-packages/yara_python-3.3.0.egg-info ]; then
+            continue
+        else
+            cd $MAIN_PATH/dev/yara/
+            rm -rf yara-python
+            pip install yara-python
+            ls /usr/local/lib/python2.7/dist-packages/yara_python-3.3.0.egg-info;
+            if [ $? == 0 ]; then
+                echo -e "yara-python failed to install. manually try installing it.\nfollow instructions at http://yara.readthedocs.org/en/v3.3.0/gettingstarted.html\n -or- remove the yara-python dir and $ sudo pip install yara-python"
+            fi
+        fi
+    fi
     cd
     echo ——————————————————————————————————————————————— >> $LOG_PATH/install.log
     echo   >> $LOG_PATH/install.log
     echo yara installation complete
-
 }
 
 

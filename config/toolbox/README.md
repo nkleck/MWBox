@@ -61,6 +61,11 @@ wget
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+PDF Analysis
+
+pdftk
+- uncompress pdf streams for viewing in texteditor
+$ pdftk file.pdf output file.unc.pdf uncompress
 
 
 

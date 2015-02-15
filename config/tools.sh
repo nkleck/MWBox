@@ -6,6 +6,12 @@
 #   if i add /vagrant/scripts to path, am i good to execute a .py script within a folder in the path
 #       or do i need to add that folder to path, or just move that .py script into scripts
 
+#define global variables
+MAIN_PATH=`pwd`
+LOG_PATH=$MAIN_PATH/logs
+UB_PATH=/usr/bin
+INST="apt-get install -y"
+TOOL_PATH=$MAIN_PATH/toolbox
 
 #Add stuff to $PATH
 PATH=$MAIN_PATH/toolbox:$PATH
@@ -58,10 +64,11 @@ install_pdf() {
     else
         apt-get install -y poppler-utils
     fi
-    if [ -f $MAIN_PATH/toolbox/pdfxray_lite/pdfxray_lite.py ]; then
+
+    if [ -f $TOOL_PATH/pdf_analysis/pdfxray_lite/pdfxray_lite.py ]; then
         continue
     else
-        cd $MAIN_PATH/toolbox/
+        cd $TOOL_PATH/pdf_analysis
         git clone https://github.com/9b/pdfxray_lite
     fi
 }
@@ -78,25 +85,27 @@ install_pdf() {
 
 
 
-#installing AnalyzePDF
-#AnalyzePDF
-# requires yara, pdfid , pdfinfo (installed by poppler-utils)
-#pdfid
-# wget http://didierstevens.com/files/software/pdfid_v0_2_1.zip
-# sudo apt-get install unzip
-# chmod +x pdfid.py
-# do this in its own file and then path the script
-# ADD PDFID.PY TO PATH
-# usage: python pdfid.py <file>
-# git clone https://github.com/hiddenillusion/AnalyzePDF.git
+# installing AnalyzePDF
+analyze_pdf(){
+    if [ -f $TOOL_PATH/pdf_analysis/pdfid/pdfid.py ]; then
+        continue
+    else
+        cd $TOOL_PATH/pdf_analysis
+        wget http://didierstevens.com/files/software/pdfid_v0_2_1.zip
+        unzip pdfid_v0_2_1.zip -d pdfid
+        chmod +x $TOOL_PATH/pdf_analysis/pdfid/pdfid.py
+        rm pdfid_v0_2_1.zip
+    fi
+    if [ -f $TOOL_PATH/pdf_analysis/AnalyzePDF/AnalyzePDF.py ]; then
+        continue
+    else
+        cd $TOOL_PATH/pdf_analysis
+        git clone https://github.com/hiddenillusion/AnalyzePDF.git
+        sed -i -e "s%rules = '/usr/local/etc/capabilities.yara' # REMnux location%/rules = '\/vagrant\/toolbox\/pdf_analysis\/AnalyzePDF\/pdf_rules.yara'/g" /vagrant/toolbox/pdf_analysis/AnalyzePDF/AnalyzePDF.py
+# this script not working, i think its import yara thats failing. although yara-python is installed.
+# the sed replacment line is failing as well
+}
 
-# will need to correct the path to yara rules at beg of script
-# can make it the pdf_rules.yara or the capabilities.yara
-#       see if it is possible to automaote this, otherwise, leave instructions to user to do it
-
-#usage
-#
-# ADD AnalyzePDF to PATH, but cant test until yara-python is unjacked by the developers
 
 
 

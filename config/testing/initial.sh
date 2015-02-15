@@ -32,7 +32,7 @@ initial_setup() {
     echo Installation was ran on `date` >> $LOG_PATH/install.log
     apt-get update
     apt-get -y upgrade
-    $INST git libtool automake
+    $INST git libtool automake unzip
     echo ——————————————————————————————————————————————— >> $LOG_PATH/install.log
     echo   >> $LOG_PATH/install.log
     echo Initial setup complete. . . lots more to go!
