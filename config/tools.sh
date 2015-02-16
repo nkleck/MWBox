@@ -3,8 +3,20 @@
 #
 #	this sets up the scripts, does their initial config and adds to $PATH
 #
-#   if i add /vagrant/scripts to path, am i good to execute a .py script within a folder in the path
-#       or do i need to add that folder to path, or just move that .py script into scripts
+#
+#   tools to look into
+#VBinDiff
+#totalhash.py
+#exescan.py
+#pescanner.py - needs some fixin
+#XORStrings
+#officeparser.py
+#officeMalScanner
+#pdfdecrypt
+#pdf-parser
+
+
+
 
 #define global variables
 MAIN_PATH=`pwd`
@@ -78,7 +90,7 @@ install_pdf() {
 
 
 #installing pdfextract
-#this aint gonna work
+#this aint gonna work, there is a problem with the script and ruby in vagrant.
 #git clone https://github.com/CrossRef/pdfextract.git
 #apt-get install -y ruby-full
 #apt-get install ruby-dev
@@ -126,7 +138,15 @@ analyze_pdf(){
 
 
 
-
+# Installing officeparser.py
+install_officeparser.py(){
+    if [ -f $TOOL_PATH/office_analysis/officeparser.py ]; then
+        continue
+    else
+        cd $TOOL_PATH/office_analysis
+        git clone https://github.com/unixfreak0037/officeparser.git
+    fi
+}
 
 
 
