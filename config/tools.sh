@@ -14,6 +14,9 @@
 #officeMalScanner
 #pdfdecrypt
 #pdf-parser
+#t-shark
+#tcp-dump
+
 
 
 
@@ -88,7 +91,6 @@ install_pdf() {
 }
 
 
-
 #installing pdfextract
 #this aint gonna work, there is a problem with the script and ruby in vagrant.
 #git clone https://github.com/CrossRef/pdfextract.git
@@ -132,14 +134,8 @@ analyze_pdf(){
 
 
 
-
-
-
-
-
-
 # Installing officeparser.py
-install_officeparser.py(){
+install_officeparser(){
     if [ -f $TOOL_PATH/office_analysis/officeparser.py ]; then
         continue
     else
@@ -148,6 +144,27 @@ install_officeparser.py(){
     fi
 }
 
+
+#install t-shark
+install_tshark(){
+    if [ -f $UB_PATH/tshark ]; then
+        continue
+    else
+        echo installing t-shark
+        $INST tshark
+    fi
+}
+
+
+#install tcpdump
+install_tcpdump(){
+    if [ -f /usr/sbin/tcpdump ]; then
+        continue
+    else
+        echo installing tcpdump
+        $INST tcpdump
+    fi
+}
 
 
 # Installing nmap, proxychains can use nmap
@@ -183,5 +200,8 @@ modify_wget
 install_stream
 install_pdf
 analyze_pdf
+install_officeparser
+install_tshark
+install_tcpdump
 install_nmap
 install_proxychains
