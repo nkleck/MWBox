@@ -76,6 +76,10 @@ $ python pdfxray_lite -f <file> -r report
 -or use html2text to convert it and read
     - html2text report >> output.txt
 
+pdf-parser.py
+Usage: pdf-parser.py [options] pdf-file
+- pdf-parser.py -h --help for options
+
 
 
 
