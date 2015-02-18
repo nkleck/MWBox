@@ -10,12 +10,12 @@
 #exescan.py
 #pescanner.py - needs some fixin
 #XORStrings
-#officeparser.py
+#officeparser.py  -done
 #officeMalScanner
 #pdfdecrypt
-#pdf-parser
-#t-shark
-#tcp-dump
+#pdf-parser  -done
+#t-shark  -done
+#tcp-dump  -done
 
 
 
@@ -132,6 +132,19 @@ analyze_pdf(){
     fi
 }
 
+
+#install pdf-parser
+install_pdfparder(){
+    if [ -f $TOOL_PATH/pdf_analysis/pdf-parser.py ]; then
+        continue
+    else
+        cd $TOOL_PATH/pdf_analysis/
+        wget https://didierstevens.com/files/software/pdf-parser_V0_6_0.zip
+        unzip pdf-parser_V0_6_0.zip
+        chmod +x pdf-parser.py
+        rm pdf-parser_V0_6_0.zip
+    fi
+}
 
 
 # Installing officeparser.py
