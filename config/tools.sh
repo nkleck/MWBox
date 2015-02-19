@@ -11,6 +11,8 @@
 #pescanner.py - needs some fixin
 #XORStrings
 #officeparser.py  -done
+#pdf-extract - may not work
+#pdf-parser -done
 #officeMalScanner
 #pdfdecrypt
 #pdf-parser  -done
@@ -130,7 +132,7 @@ analyze_pdf(){
 
 
 #install pdf-parser
-install_pdfparder(){
+install_pdfparser(){
     if [ -f $TOOL_PATH/pdf_analysis/pdf-parser.py ]; then
         continue
     else
@@ -209,6 +211,7 @@ modify_wget
 install_stream
 install_pdf
 analyze_pdf
+install_pdfparser
 install_officeparser
 install_tshark
 install_tcpdump
