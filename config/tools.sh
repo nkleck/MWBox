@@ -112,20 +112,19 @@ analyze_pdf(){
         chmod +x $TOOL_PATH/pdf_analysis/pdfid/pdfid.py
         rm pdfid_v0_2_1.zip
     fi
+
     if [ -f $TOOL_PATH/pdf_analysis/AnalyzePDF/AnalyzePDF.py ]; then
         echo AnalyzePDF already installed
     else
         cd $TOOL_PATH/pdf_analysis
         git clone https://github.com/hiddenillusion/AnalyzePDF.git
         sed -i -e "s%\/usr\/local\/etc\/capabilities.yara%pdf_rules.yara%g" /vagrant/toolbox/pdf_analysis/AnalyzePDF/AnalyzePDF.py
-# this script not working, although yara-python is installed.
-#   - the script works, here is what i had to do to get it working:
+    fi
 
-#       echo "/usr/local/lib/" | sudo tee -a /etc/ld.so.conf
-#       ldconfig
-
-
-# the sed replacment line is failing as well
+    cat /etc/ld.so.conf | grep -q "/usr/local/lib"
+    if [ $? -ne 0 ]; then
+        echo "/usr/local/lib/" | sudo tee -a /etc/ld.so.conf
+        ldconfig
     fi
 }
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 ###
 #
-#		this script installs yara
+#		this script installs yara and yara-python
 #
 
 
@@ -16,7 +16,7 @@ exec 2> >(tee -a $LOG_PATH/install-errors.log)
 
 # Installing Yara
 install_yara() {
-    if [ -f $UB_PATH/yara ]; then
+    if [ -f /usr/local/bin/yara ]; then
         echo yara is already installed
     else
         echo Installing yara. . .
@@ -28,12 +28,21 @@ install_yara() {
         make
         make install
     fi
+}
+
+#Installing yara-python
+install_yara_python(){
     if [ -f /usr/local/lib/python2.7/dist-packages/yara_python-3.3.0.egg-info ]; then
         echo yara-python already installed
     else
-        cd $MAIN_PATH/dev/yara/yara-python/
-        python setup.py build
-        python setup.py install
+        if [ -f $MAIN_PATH/dev/yara/yara-python/setup.py ]; then
+            echo installing yara-python
+            cd $MAIN_PATH/dev/yara/yara-python/
+            python setup.py build
+            python setup.py install
+        else
+            pip install yara-python
+        fi
         if [ -f /usr/local/lib/python2.7/dist-packages/yara_python-3.3.0.egg-info ]; then
             continue
         else
@@ -41,15 +50,18 @@ install_yara() {
             rm -rf yara-python
             pip install yara-python
             ls /usr/local/lib/python2.7/dist-packages/yara_python-3.3.0.egg-info;
-            if [ $? == 0 ]; then
+            if [ $? -ne 0 ]; then
                 echo -e "yara-python failed to install. manually try installing it.\nfollow instructions at http://yara.readthedocs.org/en/v3.3.0/gettingstarted.html\n -or- remove the yara-python dir and $ sudo pip install yara-python"
             fi
         fi
     fi
-    cd
-    echo ——————————————————————————————————————————————— >> $LOG_PATH/install.log
-    echo   >> $LOG_PATH/install.log
-    echo yara installation complete
+
+    cat /etc/ld.so.conf | grep -q "/usr/local/lib"
+    if [ $? -ne 0 ]; then
+        echo "/usr/local/lib/" | sudo tee -a /etc/ld.so.conf
+        ldconfig
+    fi
 }
 
 install_yara
+install_yara_python
