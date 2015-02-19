@@ -118,7 +118,7 @@ analyze_pdf(){
     else
         cd $TOOL_PATH/pdf_analysis
         git clone https://github.com/hiddenillusion/AnalyzePDF.git
-        sed -i -e "s%\/usr\/local\/etc\/capabilities.yara%pdf_rules.yara%g" /vagrant/toolbox/pdf_analysis/AnalyzePDF/AnalyzePDF.py
+        sed -i -e "s:\/usr\/local\/etc\/capabilities.yara:pdf_rules.yara:g" /vagrant/toolbox/pdf_analysis/AnalyzePDF/AnalyzePDF.py
     fi
 
     cat /etc/ld.so.conf | grep -q "/usr/local/lib"
