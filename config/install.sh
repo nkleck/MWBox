@@ -273,4 +273,12 @@ install_ssdeep
 unpack_clamav
 
 
+#shorten the working path, long paths are annoying
+cd /home/vagrant/
+cat .bashrc | fgrep -q "PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$ '"
+    if [ $? -ne 0 ]; then
+        echo "PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$ '" >> .bashrc
+        echo "PS1='\u:\W$ '" >> .bashrc
+    fi
+
 echo -e "Your setup is complete.\nSee the install.log file in logs for details\nand check the install-errors.log for information \non any errors during installation."
