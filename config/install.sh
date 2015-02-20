@@ -87,6 +87,7 @@ install_tor() {
         cat /etc/apt/sources.list | grep -q "deb.torproject.org"
         if [ $? -ne 0 ]; then
             echo "deb http://deb.torproject.org/torproject.org trusty main" | sudo tee -a /etc/apt/sources.list
+            echo "deb-src http://deb.torproject.org/torproject.org trusty main" | sudo tee -a /etc/apt/sources.list
             echo added deb http://deb.torproject.org/torproject.org trusty main to source.list
         fi
 
@@ -108,7 +109,7 @@ install_tor() {
 
         apt-key list | grep -q "deb.torproject.org archive signing key";
         if [ $? == 0 ]; then
-            apt-get updates
+            apt-get update
             $INST deb.torproject.org-keyring
             echo installing tor
             $INST tor
