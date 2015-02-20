@@ -7,17 +7,40 @@
 #   tools to look into
 #VBinDiff
 #totalhash.py
+#XORStrings
+#xorsearch
+#
+#   Executable analysis
 #exescan.py
 #pescanner.py - needs some fixin
-#XORStrings
+#pyew
+#clamscan
+#objdump
+#radare
+#
+#   office analysis
 #officeparser.py  -done
 #officeMalScanner
+#
+#   pdf analysis
 #pdf-extract - may not work
 #pdf-parser -done
 #pdf-parser  -done
 #pdfdecrypt
+#peepdf
+#pdfcop
+#pdfdecompress
+#pdf.py
+#
+#   shellcode analysis
+#sctest
+#
+#   network traffic
 #t-shark  -done
 #tcp-dump  -done
+#
+#
+#   WRITEUP ON EACH IN README in TOOLBOX AND WHAT EACH IS GOOD TO USE ON
 
 
 
@@ -71,19 +94,27 @@ install_stream() {
     fi
 }
 
-#Install PDF Stuff
-install_pdf() {
+#Install pdftk
+install_pdftk() {
     if [ -f /usr/bin/pdftk ]; then
         continue
     else
         apt-get install -y pdftk
     fi
+}
+
+# Install pdftotext
+install_pdftotext(){
     if [ -f /usr/bin/pdftotext ]; then
         continue
     else
         apt-get install -y poppler-utils
     fi
+}
 
+
+#install pdfxray_lite
+install_pdfxray_lite(){
     if [ -f $TOOL_PATH/pdf_analysis/pdfxray_lite/pdfxray_lite.py ]; then
         continue
     else
@@ -103,8 +134,8 @@ install_pdf() {
 
 
 
-# installing AnalyzePDF
-analyze_pdf(){
+# installing pdfid
+install_pdfid(){
     if [ -f $TOOL_PATH/pdf_analysis/pdfid/pdfid.py ]; then
         continue
     else
@@ -114,7 +145,11 @@ analyze_pdf(){
         chmod +x $TOOL_PATH/pdf_analysis/pdfid/pdfid.py
         rm pdfid_v0_2_1.zip
     fi
+}
 
+
+# install AnalyzePDF
+install_AnalyzePDF(){
     if [ -f $TOOL_PATH/pdf_analysis/AnalyzePDF/AnalyzePDF.py ]; then
         echo AnalyzePDF already installed
     else
@@ -209,8 +244,12 @@ install_proxychains() {
 #execute functions below this line
 modify_wget
 install_stream
-install_pdf
-analyze_pdf
+install_pdftk
+install_pdftotext
+install_pdfxray_lite
+install_pdfid
+#install_pdfextract
+install_AnalyzePDF
 install_pdfparser
 install_officeparser
 install_tshark
