@@ -11,11 +11,11 @@
 #pescanner.py - needs some fixin
 #XORStrings
 #officeparser.py  -done
+#officeMalScanner
 #pdf-extract - may not work
 #pdf-parser -done
-#officeMalScanner
-#pdfdecrypt
 #pdf-parser  -done
+#pdfdecrypt
 #t-shark  -done
 #tcp-dump  -done
 
