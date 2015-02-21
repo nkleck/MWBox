@@ -41,6 +41,7 @@
 #
 #
 #   WRITEUP ON EACH IN README in TOOLBOX AND WHAT EACH IS GOOD TO USE ON
+#       include a how-to use the GUI for some tools like pdfwalker
 
 
 
@@ -87,7 +88,7 @@ $INST html2text
 #Install Stream
 install_stream() {
     if [ -f /usr/bin/stream ]; then
-        continue
+        echo stream is already installed
     else
         apt-get install imagemagick
         echo stream is installed
@@ -97,7 +98,7 @@ install_stream() {
 #Install pdftk
 install_pdftk() {
     if [ -f /usr/bin/pdftk ]; then
-        continue
+        echo pdftk is already installed
     else
         apt-get install -y pdftk
     fi
@@ -106,7 +107,7 @@ install_pdftk() {
 # Install pdftotext
 install_pdftotext(){
     if [ -f /usr/bin/pdftotext ]; then
-        continue
+        echo pdftotext is already installed
     else
         apt-get install -y poppler-utils
     fi
@@ -116,7 +117,7 @@ install_pdftotext(){
 #install pdfxray_lite
 install_pdfxray_lite(){
     if [ -f $TOOL_PATH/pdf_analysis/pdfxray_lite/pdfxray_lite.py ]; then
-        continue
+        echo pdfxray_lite is already installed
     else
         cd $TOOL_PATH/pdf_analysis
         git clone https://github.com/9b/pdfxray_lite
@@ -124,20 +125,10 @@ install_pdfxray_lite(){
 }
 
 
-#installing pdfextract
-#this aint gonna work, there is a problem with the script and ruby in vagrant.
-#git clone https://github.com/CrossRef/pdfextract.git
-#apt-get install -y ruby-full
-#apt-get install ruby-dev
-#apt-get install zlib1g-dev
-#apt-get install libsqlite3-dev
-
-
-
 # installing pdfid
 install_pdfid(){
     if [ -f $TOOL_PATH/pdf_analysis/pdfid/pdfid.py ]; then
-        continue
+        echo pdfid is already installed
     else
         cd $TOOL_PATH/pdf_analysis
         wget http://didierstevens.com/files/software/pdfid_v0_2_1.zip
@@ -169,7 +160,7 @@ install_AnalyzePDF(){
 #install pdf-parser
 install_pdfparser(){
     if [ -f $TOOL_PATH/pdf_analysis/pdf-parser.py ]; then
-        continue
+        echo pdf-parser is already installed
     else
         cd $TOOL_PATH/pdf_analysis/
         wget https://didierstevens.com/files/software/pdf-parser_V0_6_0.zip
@@ -180,10 +171,22 @@ install_pdfparser(){
 }
 
 
+#install origami: pdfextract, pdfwalker, pdfcop, pdfdecrypt, pdfencrypt, pdfdecompress, pdfcocoon, pdfmetadata, pdf2graph, pdf2ruby, pdfsh, pdfexplode, pdf2ps, pdf2pdfa, pdf2dsc
+install_origami(){
+    if [ -f /usr/local/bin/pdfcop ]; then
+        echo origami tools are already installed
+    else
+        gem install origami
+        apt-get install ruby-gtk2
+    fi
+}
+
+
+
 # Installing officeparser.py
 install_officeparser(){
     if [ -f $TOOL_PATH/office_analysis/officeparser.py ]; then
-        continue
+        echo officeparsere is already installed
     else
         cd $TOOL_PATH/office_analysis
         git clone https://github.com/unixfreak0037/officeparser.git
@@ -195,7 +198,7 @@ install_officeparser(){
 #requires wine for use, install.sh installs wine
 install_officemalscanner(){
     if [ -f $TOOL_PATH/office_analysis/officemalscanner/OfficeMalScanner.exe ]; then
-        continue
+        echo OfficeMalScanner is already installed
     else
         cd $TOOL_PATH/office_analysis
         wget http://www.reconstructer.org/code/OfficeMalScanner.zip
@@ -208,7 +211,7 @@ install_officemalscanner(){
 #install t-shark
 install_tshark(){
     if [ -f $UB_PATH/tshark ]; then
-        continue
+        echo t-shark is already installed
     else
         echo installing t-shark
         $INST tshark
@@ -219,7 +222,7 @@ install_tshark(){
 #install tcpdump
 install_tcpdump(){
     if [ -f /usr/sbin/tcpdump ]; then
-        continue
+        echo tcpdump is already installed
     else
         echo installing tcpdump
         $INST tcpdump
@@ -229,29 +232,25 @@ install_tcpdump(){
 
 # Installing nmap, proxychains can use nmap
 install_nmap() {
-  if [ -f $UB_PATH/nmap ]; then
-    echo nmap is already installed.
-  else
-    echo Installing nmap. . .
-    $INST nmap
-    echo ——————————————————————————————————————————————— >> $LOG_PATH/install.log
-    echo   >> $LOG_PATH/install.log
-    echo nmap installation complete
-  fi
+    if [ -f $UB_PATH/nmap ]; then
+        echo nmap is already installed.
+    else
+        echo Installing nmap. . .
+        $INST nmap
+        echo nmap installation complete
+    fi
 }
 
 
 #Install proxychains
 install_proxychains() {
-  if [ -f $UB_PATH/proxychains ]; then
-    echo proxychains is already installed.
-  else
-    echo Installing proxychains. . .
-    $INST proxychains
-    echo ——————————————————————————————————————————————— >> $LOG_PATH/install.log
-    echo   >> $LOG_PATH/install.log
-    echo proxychains installation complete
-  fi
+    if [ -f $UB_PATH/proxychains ]; then
+        echo proxychains is already installed.
+    else
+        echo Installing proxychains. . .
+        $INST proxychains
+        echo proxychains installation complete
+    fi
 }
 
 
@@ -321,10 +320,11 @@ install_pdftk
 install_pdftotext
 install_pdfxray_lite
 install_pdfid
-#install_pdfextract
 install_AnalyzePDF
+install_origami
 install_pdfparser
 install_officeparser
+install_officemalscanner
 install_tshark
 install_tcpdump
 install_nmap
