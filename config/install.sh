@@ -17,13 +17,13 @@ LOG_PATH=$MAIN_PATH/logs
 UB_PATH=/usr/bin
 INST="apt-get install -y"
 
-if [ -f $MAIN_PATH/dev ]; then
-    continue
+if [ -d $MAIN_PATH/dev ]; then
+    echo initial config already ran, check for updates instead...
 else
     for d in 'dbfiles dev logs notes samples signatures sandbox'; do
         mkdir -p $MAIN_PATH/$d
-        if [ -f $MAIN_PATH/config/toolbox/README ]; then
-            mv $MAIN_PATH/config/toolbox/ $MAIN_PATH/toolbox
+        if [ -d $MAIN_PATH/config/toolbox ]; then
+            mv $MAIN_PATH/config/toolbox $MAIN_PATH/toolbox
         fi
     done
 fi
