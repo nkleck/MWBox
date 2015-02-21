@@ -133,6 +133,7 @@ install_yara() {
     fi
 }
 
+
 #Installing yara-python
 install_yara_python(){
     if [ -f /usr/local/lib/python2.7/dist-packages/yara_python-3.3.0.egg-info ]; then
@@ -165,9 +166,6 @@ install_yara_python(){
         ldconfig
     fi
 }
-
-
-
 
 
 # Install ssdeep and things
