@@ -44,6 +44,32 @@ Install this vagrantbox
 	- logs into the vagrantbox
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To turn the GUI feature on/off, install the GUI, and check if it is installed
+go to the config dir and run the gui.sh script
+
+$ cd /vagrant/config
+$ sudo ./gui.sh
+- this script will ask you if you want to turn On or Off the GUI feature, 
+and then install the GUI software if it is not already installed
+- after running this script, you will need to log out of vagrant, and restart it
+$ exit
+$ vagrant halt
+$ vagrant up
+$ vagrant ssh
+- ignore the GUI box that opens at this point, you need to initiate one from within vagrant
+
+
+initializing the GUI, some tools require the GUI
+$ sudo startxfce4&
+
+logout
+- in the GUI, open XTerm]
+$ xfce4-session-logout
+- this still leaves you logged into your vagrant session
+- if you close the xfce4 via Virtualbox, it will end vagrant session
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Anonymous web
 - Tor
 - wget
@@ -79,6 +105,13 @@ $ python pdfxray_lite -f <file> -r report
 pdf-parser.py
 Usage: pdf-parser.py [options] pdf-file
 - pdf-parser.py -h --help for options
+
+pdfwalker
+- requires the gui tool
+$ startxfce4&
+- in GUI: Applications>System>XTerm 
+Usage: pdfwakder file.pdf
+
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
