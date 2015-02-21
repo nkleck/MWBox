@@ -23,14 +23,14 @@
 #officeMalScanner - done
 #
 #   pdf analysis
-#pdf-extract - may not work
-#pdf-parser -done
-#pdf-parser  -done
-#pdfdecrypt
-#peepdf
-#pdfcop
-#pdfdecompress
+#pdf-parser - done
 #pdf.py
+#peepdf - done
+#origami - done
+#   - pdfextract, pdfwalker, pdfcop, pdfdecrypt, pdfencrypt, pdfdecompress,
+#   - pdfcocoon, pdfmetadata, pdf2graph, pdf2ruby, pdfsh,
+#   - pdfexplode, pdf2ps, pdf2pdfa, pdf2dsc
+#
 #
 #   shellcode analysis
 #sctest
@@ -105,7 +105,7 @@ install_pdftk() {
 }
 
 # Install pdftotext
-install_pdftotext(){
+install_pdftotext() {
     if [ -f /usr/bin/pdftotext ]; then
         echo pdftotext is already installed
     else
@@ -115,7 +115,7 @@ install_pdftotext(){
 
 
 #install pdfxray_lite
-install_pdfxray_lite(){
+install_pdfxray_lite() {
     if [ -f $TOOL_PATH/pdf_analysis/pdfxray_lite/pdfxray_lite.py ]; then
         echo pdfxray_lite is already installed
     else
@@ -126,7 +126,7 @@ install_pdfxray_lite(){
 
 
 # installing pdfid
-install_pdfid(){
+install_pdfid() {
     if [ -f $TOOL_PATH/pdf_analysis/pdfid/pdfid.py ]; then
         echo pdfid is already installed
     else
@@ -140,7 +140,7 @@ install_pdfid(){
 
 
 # install AnalyzePDF
-install_AnalyzePDF(){
+install_AnalyzePDF() {
     if [ -f $TOOL_PATH/pdf_analysis/AnalyzePDF/AnalyzePDF.py ]; then
         echo AnalyzePDF already installed
     else
@@ -158,7 +158,7 @@ install_AnalyzePDF(){
 
 
 #install pdf-parser
-install_pdfparser(){
+install_pdfparser() {
     if [ -f $TOOL_PATH/pdf_analysis/pdf-parser.py ]; then
         echo pdf-parser is already installed
     else
@@ -172,7 +172,7 @@ install_pdfparser(){
 
 
 #install origami: pdfextract, pdfwalker, pdfcop, pdfdecrypt, pdfencrypt, pdfdecompress, pdfcocoon, pdfmetadata, pdf2graph, pdf2ruby, pdfsh, pdfexplode, pdf2ps, pdf2pdfa, pdf2dsc
-install_origami(){
+install_origami() {
     if [ -f /usr/local/bin/pdfcop ]; then
         echo origami tools are already installed
     else
@@ -182,9 +182,21 @@ install_origami(){
 }
 
 
+# install peepdf
+install_peepdf() {
+    if [ -d $TOOL_PATH/pdf_analysis/peepdf_0.3 ]; then
+        echo peepdf is already installed
+    else
+        cd $TOOL_PATH/pdf_analysis
+        wget http://eternal-todo.com/files/pdf/peepdf/peepdf_0.3.tar.gz
+        tar -zxvf peepdf_0.3.tar.gz
+        rm peepdf_0.3.tar.gz
+    fi
+}
+
 
 # Installing officeparser.py
-install_officeparser(){
+install_officeparser() {
     if [ -f $TOOL_PATH/office_analysis/officeparser.py ]; then
         echo officeparsere is already installed
     else
@@ -196,7 +208,7 @@ install_officeparser(){
 
 #install officemalscanner
 #requires wine for use, install.sh installs wine
-install_officemalscanner(){
+install_officemalscanner() {
     if [ -f $TOOL_PATH/office_analysis/officemalscanner/OfficeMalScanner.exe ]; then
         echo OfficeMalScanner is already installed
     else
@@ -209,7 +221,7 @@ install_officemalscanner(){
 
 
 #install t-shark
-install_tshark(){
+install_tshark() {
     if [ -f $UB_PATH/tshark ]; then
         echo t-shark is already installed
     else
@@ -220,7 +232,7 @@ install_tshark(){
 
 
 #install tcpdump
-install_tcpdump(){
+install_tcpdump() {
     if [ -f /usr/sbin/tcpdump ]; then
         echo tcpdump is already installed
     else
@@ -323,6 +335,7 @@ install_pdfid
 install_AnalyzePDF
 install_origami
 install_pdfparser
+install_peepdf
 install_officeparser
 install_officemalscanner
 install_tshark

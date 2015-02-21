@@ -18,7 +18,7 @@ initial_setup() {
 
 # Install python
 install_python() {
-    $INST python3-all-dev build-essential libffi-dev python-dev libfuzzy-dev python-pip python-magic python-pefile
+    $INST python3-all-dev build-essential libffi-dev python-dev libfuzzy-dev python-pip python-magic python-pefile python-lxml
 }
 
 
