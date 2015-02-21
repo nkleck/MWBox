@@ -191,9 +191,6 @@ install_officeparser(){
 }
 
 
-#install wine
-
-
 #install officemalscanner
 #requires wine for use, install.sh installs wine
 install_officemalscanner(){
