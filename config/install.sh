@@ -40,8 +40,6 @@ initial_setup() {
     apt-get update
     apt-get -y upgrade
     $INST git libtool automake unzip
-    echo ——————————————————————————————————————————————— >> $LOG_PATH/install.log
-    echo   >> $LOG_PATH/install.log
     echo Initial setup complete. . . lots more to go!
 }
 
@@ -50,8 +48,6 @@ initial_setup() {
 install_python() {
     echo Installing python packages. . .
     $INST python3-all-dev build-essential libffi-dev python-dev libfuzzy-dev python-pip python-magic python-pefile
-    echo ——————————————————————————————————————————————— >> $LOG_PATH/install.log
-    echo   >> $LOG_PATH/install.log
     echo Python packages installation complete.
 }
 
@@ -71,9 +67,6 @@ install_clamav() {
         cd $MAIN_PATH/samples/
         mkdir clamav
         mv /usr/share/clamav-testfiles $MAIN_PATH/samples/clamav
-        cd
-        echo ——————————————————————————————————————————————— >> $LOG_PATH/install.log
-        echo   >> $LOG_PATH/install.log
         echo clamav installation and setup complete
     fi
 }
@@ -192,9 +185,6 @@ install_ssdeep() {
         cd pyssdeep-read-only
         python setup.py build
         python setup.py install
-        cd
-        echo ——————————————————————————————————————————————— >> $LOG_PATH/install.log
-        echo   >> $LOG_PATH/install.log
         echo ssdeep installation complete
     fi
 }
@@ -212,68 +202,6 @@ install_wine(){
 }
 
 
-# unpack clamav signatures
-unpack_clamav() {
-    echo Checking for clamav signatures. . .
-
-    #define local variables
-    CLAMDB_PATH=$MAIN_PATH/dbfiles/clamdb
-    CLSIG_PATH=/var/lib/clamav
-    SIGT="sigtool -u /var/lib/clamav"
-    EMAIN="Unpacking clamav main.cvd signatures failed\nYou will need to run sudo apt-get install clamav-freshclam again\nAnd run sigtool -u /var/lib/clamav/main.cvd OR daily.cld"
-    EDAILY="Unpacking clamav daily.cvd signatures failed\nYou will need to run sudo apt-get install clamav-freshclam again\nAnd run sigtool -u /var/lib/clamav/daily.cvd OR daily.cld"
-
-
-    if [ -f $CLAMDB_PATH/main.ndb ]; then
-        echo clamav signatures already unpacked
-        echo Removing old clamav signatures
-        rm -r -f $MAIN_PATH/dbfiles/clamdb
-        mkdir -p $MAIN_PATH/dbfiles/clamdb
-        cd $CLAMDB_PATH
-        if [ -f $CLSIG_PATH/main.cvd ]; then
-            $SIGT/main.cvd
-            echo Unpacking new clamav main.cvd sigantures
-        elif [ -f $CLSIG_PATH/main.cld ]; then
-            $SIGT/main.cld
-            echo Unpacking new clamav main.cld sigantures
-        else
-            echo -e $EMAIN
-        fi
-        if [ -f $CLSIG_PATH/daily.cvd ]; then
-            $SIGT/daily.cvd
-            echo Unpacking new clamav daily.cvd signatures
-        elif [ -f $CLSIG_PATH/daily.cld ]; then
-            $SIGT/daily.cld
-            echo Unpacking new clamav daily.cld signatures
-        else
-            echo -e $EDAILY
-        fi
-    else
-        cd $CLAMDB_PATH
-        echo No clamav signatures present
-        echo Unpacking clamav signatures
-        if [ -f $CLSIG_PATH/main.cvd ]; then
-            $SIGT/main.cvd
-        elif [ -f $CLSIG_PATH/main.cld ]; then
-            $SIGT/main.cld
-        else
-            echo -e $EMAIN
-        fi
-        if [ -f $CLSIG_PATH/daily.cvd ]; then
-            $SIGT/daily.cvd
-        elif [ -f $CLSIG_PATH/daily.cld ]; then
-            $SIGT/daily.cld
-        else
-            echo -e $EDAILY
-        fi
-    fi
-    cd
-    echo ——————————————————————————————————————————————— >> $LOG_PATH/install.log
-    echo   >> $LOG_PATH/install.log
-    echo Unpacking clamav signatures complete
-}
-
-
 # this section executes the above written stuff
 
 initial_setup
@@ -284,7 +212,6 @@ install_yara
 install_yara_python
 install_ssdeep
 install_wine
-unpack_clamav
 
 
 #shorten the working path, long paths are annoying

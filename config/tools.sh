@@ -14,13 +14,13 @@
 #exescan.py
 #pescanner.py - needs some fixin
 #pyew
-#clamscan  -install.sh installs this, maybe move the config portion to tools.sh
+#clamscan  -install.sh installs this, tools.sh unpacks signatures
 #objdump
 #radare
 #
 #   office analysis
 #officeparser.py  -done
-#officeMalScanner
+#officeMalScanner - done
 #
 #   pdf analysis
 #pdf-extract - may not work
@@ -255,6 +255,65 @@ install_proxychains() {
 }
 
 
+# unpack clamav signatures
+unpack_clamav() {
+    echo Checking for clamav signatures. . .
+
+#define local variables
+CLAMDB_PATH=$MAIN_PATH/dbfiles/clamdb
+CLSIG_PATH=/var/lib/clamav
+SIGT="sigtool -u /var/lib/clamav"
+EMAIN="Unpacking clamav main.cvd signatures failed\nYou will need to run sudo apt-get install clamav-freshclam again\nAnd run sigtool -u /var/lib/clamav/main.cvd OR daily.cld"
+EDAILY="Unpacking clamav daily.cvd signatures failed\nYou will need to run sudo apt-get install clamav-freshclam again\nAnd run sigtool -u /var/lib/clamav/daily.cvd OR daily.cld"
+
+
+    if [ -f $CLAMDB_PATH/main.ndb ]; then
+        echo clamav signatures already unpacked
+        echo Removing old clamav signatures
+        rm -r -f $MAIN_PATH/dbfiles/clamdb
+        mkdir -p $MAIN_PATH/dbfiles/clamdb
+        cd $CLAMDB_PATH
+        if [ -f $CLSIG_PATH/main.cvd ]; then
+            $SIGT/main.cvd
+            echo Unpacking new clamav main.cvd sigantures
+        elif [ -f $CLSIG_PATH/main.cld ]; then
+            $SIGT/main.cld
+            echo Unpacking new clamav main.cld sigantures
+        else
+            echo -e $EMAIN
+        fi
+        if [ -f $CLSIG_PATH/daily.cvd ]; then
+            $SIGT/daily.cvd
+            echo Unpacking new clamav daily.cvd signatures
+        elif [ -f $CLSIG_PATH/daily.cld ]; then
+            $SIGT/daily.cld
+            echo Unpacking new clamav daily.cld signatures
+        else
+            echo -e $EDAILY
+        fi
+    else
+        cd $CLAMDB_PATH
+        echo No clamav signatures present
+        echo Unpacking clamav signatures
+        if [ -f $CLSIG_PATH/main.cvd ]; then
+            $SIGT/main.cvd
+        elif [ -f $CLSIG_PATH/main.cld ]; then
+            $SIGT/main.cld
+        else
+            echo -e $EMAIN
+        fi
+        if [ -f $CLSIG_PATH/daily.cvd ]; then
+            $SIGT/daily.cvd
+        elif [ -f $CLSIG_PATH/daily.cld ]; then
+            $SIGT/daily.cld
+        else
+            echo -e $EDAILY
+        fi
+    fi
+    echo Unpacking clamav signatures complete
+}
+
+
 #execute functions below this line
 modify_wget
 install_stream
@@ -270,3 +329,4 @@ install_tshark
 install_tcpdump
 install_nmap
 install_proxychains
+unpack_clamav
