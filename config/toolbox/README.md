@@ -81,6 +81,17 @@ Usage: pdf-parser.py [options] pdf-file
 - pdf-parser.py -h --help for options
 
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Office Analysis
+
+OfficeMalScanner
+-requires wine to run, its an .exe, wine is installed in the install.sh script
+usage: wine OfficeMalScanner <PPT, DOC or XLS file> <scan | info> <brute> <debug>
+help: wine OfficeMalScanner
+typical usage: wine OfficeMalScanner <file> scan >> output.txt
+
+
 
 
 

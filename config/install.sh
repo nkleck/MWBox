@@ -200,6 +200,18 @@ install_ssdeep() {
 }
 
 
+#install wine
+install_wine(){
+    if [ -f /usr/bin/wine ]; then
+        continue
+    else
+        dpkg --add-architecture i386
+        apt-get update
+        $INST wine1.6
+    fi
+}
+
+
 # unpack clamav signatures
 unpack_clamav() {
     echo Checking for clamav signatures. . .
@@ -271,6 +283,7 @@ install_tor
 install_yara
 install_yara_python
 install_ssdeep
+install_wine
 unpack_clamav
 
 

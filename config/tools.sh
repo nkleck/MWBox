@@ -14,7 +14,7 @@
 #exescan.py
 #pescanner.py - needs some fixin
 #pyew
-#clamscan
+#clamscan  -install.sh installs this, maybe move the config portion to tools.sh
 #objdump
 #radare
 #
@@ -175,7 +175,7 @@ install_pdfparser(){
         wget https://didierstevens.com/files/software/pdf-parser_V0_6_0.zip
         unzip pdf-parser_V0_6_0.zip
         chmod +x pdf-parser.py
-        rm pdf-parser_V0_6_0.zip
+        rm $TOOL_PATH/pdf_analysis/pdf-parser_V0_6_0.zip
     fi
 }
 
@@ -187,6 +187,23 @@ install_officeparser(){
     else
         cd $TOOL_PATH/office_analysis
         git clone https://github.com/unixfreak0037/officeparser.git
+    fi
+}
+
+
+#install wine
+
+
+#install officemalscanner
+#requires wine for use, install.sh installs wine
+install_officemalscanner(){
+    if [ -f $TOOL_PATH/office_analysis/officemalscanner/OfficeMalScanner.exe ]; then
+        continue
+    else
+        cd $TOOL_PATH/office_analysis
+        wget http://www.reconstructer.org/code/OfficeMalScanner.zip
+        unzip OfficeMalScanner.zip -d officemalscanner
+        rm $TOOL_PATH/office_analysis/OfficeMalScanner.zip
     fi
 }
 
