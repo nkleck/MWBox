@@ -126,6 +126,14 @@ typical usage: wine OfficeMalScanner <file> scan >> output.txt
 
 
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Executable analysis
+
+exeScan
+- requires wine
+usage: $ wine exescan -a <path to exe file>
+
 
 
 
