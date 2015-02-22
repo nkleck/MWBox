@@ -25,6 +25,24 @@ else
         if [ -d $MAIN_PATH/config/toolbox ]; then
             mv $MAIN_PATH/config/toolbox $MAIN_PATH/toolbox
         fi
+        if [ -d $MAIN_PATH/toolbox/recon ]; then
+            echo recon dir already exists
+        else
+            cd $MAIN_PATH/toolbox
+            mkdir recon
+        fi
+        if [ -d $MAIN_PATH/toolbox/file_analysis ]; then
+            echo file_analysis dir already exists
+        else
+            cd $MAIN_PATH/toolbox
+            mkdir file_analysis
+        fi
+        if [ -d $MAIN_PATH/toolbox/office_analysis ]; then
+            echo file_analysis dir already exists
+        else
+            cd $MAIN_PATH/toolbox
+            mkdir office_analysis
+        fi
     done
 fi
 
