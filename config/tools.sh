@@ -5,8 +5,8 @@
 #
 #
 #   tools to look into
-#VBinDiff
-#totalhash.py
+#
+#totalhash.py - done
 #XORStrings
 #xorsearch
 #
@@ -38,6 +38,7 @@
 #   network traffic
 #t-shark  -done
 #tcp-dump  -done
+#dnsmap - done
 #
 #
 #   WRITEUP ON EACH IN README in TOOLBOX AND WHAT EACH IS GOOD TO USE ON
@@ -56,8 +57,12 @@ TOOL_PATH=$MAIN_PATH/toolbox
 
 #Add stuff to $PATH
 PATH=$MAIN_PATH/toolbox:$PATH
-PATH=$$MAIN_PATH/toolbox/pdf_tools:$PATH
-PATH=$$MAIN_PATH/toolbox/pdf_tools/pdfxray_lite:$PATH
+PATH=$MAIN_PATH/toolbox/av_scanners:$PATH
+PATH=$MAIN_PATH/toolbox/pdf_analysis:$PATH
+PATH=$MAIN_PATH/toolbox/pe_scripts:$PATH
+PATH=$MAIN_PATH/toolbox/office_analysis:$PATH
+PATH=$MAIN_PATH/toolbox/recon:$PATH
+PATH=$MAIN_PATH/toolbox/yara_scripts:$PATH
 
 
 exec > >(tee -a $LOG_PATH/install.log)
@@ -121,6 +126,7 @@ install_pdfxray_lite() {
     else
         cd $TOOL_PATH/pdf_analysis
         git clone https://github.com/9b/pdfxray_lite
+        PATH=$PATH:$MAIN_PATH/toolbox/pdf_analysis/pdfxray_lite
     fi
 }
 
@@ -135,6 +141,7 @@ install_pdfid() {
         unzip pdfid_v0_2_1.zip -d pdfid
         chmod +x $TOOL_PATH/pdf_analysis/pdfid/pdfid.py
         rm pdfid_v0_2_1.zip
+        PATH=$MAIN_PATH/toolbox/pdf_analysis/pdfid:$PATH
     fi
 }
 
@@ -147,6 +154,8 @@ install_AnalyzePDF() {
         cd $TOOL_PATH/pdf_analysis
         git clone https://github.com/hiddenillusion/AnalyzePDF.git
         sed -i -e "s:\/usr\/local\/etc\/capabilities.yara:pdf_rules.yara:g" /vagrant/toolbox/pdf_analysis/AnalyzePDF/AnalyzePDF.py
+        PATH=$PATH:$MAIN_PATH/toolbox/pdf_analysis/AnalyzePDF
+        PATH=$PATH:$MAIN_PATH/toolbox/pdf_analysis/AnalyzePDF/extras
     fi
 
     cat /etc/ld.so.conf | grep -q "/usr/local/lib"
@@ -191,6 +200,7 @@ install_peepdf() {
         wget http://eternal-todo.com/files/pdf/peepdf/peepdf_0.3.tar.gz
         tar -zxvf peepdf_0.3.tar.gz
         rm peepdf_0.3.tar.gz
+        PATH=$PATH:$MAIN_PATH/toolbox/pdf_analysis/peepdf_0.3
     fi
 }
 
@@ -202,6 +212,7 @@ install_officeparser() {
     else
         cd $TOOL_PATH/office_analysis
         git clone https://github.com/unixfreak0037/officeparser.git
+        PATH=$PATH:$MAIN_PATH/toolbox/office_analysis/officeparser
     fi
 }
 
@@ -216,6 +227,41 @@ install_officemalscanner() {
         wget http://www.reconstructer.org/code/OfficeMalScanner.zip
         unzip OfficeMalScanner.zip -d officemalscanner
         rm $TOOL_PATH/office_analysis/OfficeMalScanner.zip
+        PATH=$PATH:$MAIN_PATH/toolbox/office_analysis/officemalscanner #this path does not seem to work
+    fi
+}
+
+
+#install totalhash.py - looks up suspicious files at totalhash.com
+install_totalhash() {
+    if [ -f $TOOL_PATH/file_analysis/totalhash.py ]; then
+        echo totalhash.py already installed
+    else
+        cd $TOOL_PATH/file_analysis
+        git clone https://gist.github.com/10270150.git
+        mv $TOOL_PATH/file_analysis/10270150/totalhash.py .
+        rm -rf 10270150
+    fi
+}
+
+
+
+
+
+
+#install dnsmap
+install_dnsmap() {
+    if [ -f $TOOL_PATH/recon/dnsmap-0.30/dnsmap ]; then
+        echo dnsmap already installed
+    else
+        cd $TOOL_PATH/recon
+        wget http://dnsmap.googlecode.com/files/dnsmap-0.30.tar.gz
+        tar -zxvf dnsmap-0.30.tar.gz
+        rm dnsmap-0.30.tar.gz
+        cd $TOOL_PATH/recon/dnsmap-0.30
+        make
+        make install
+        PATH=$PATH:$TOOL_PATH/recon/dnsmap-0.30
     fi
 }
 
@@ -338,6 +384,8 @@ install_pdfparser
 install_peepdf
 install_officeparser
 install_officemalscanner
+install_totalhash
+install_dnsmap
 install_tshark
 install_tcpdump
 install_nmap
