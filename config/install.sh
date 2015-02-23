@@ -49,6 +49,12 @@ else
             cd $MAIN_PATH/toolbox
             mkdir pe_analysis
         fi
+        if [ -d $MAIN_PATH/toolbox/pdf_analysis ]; then
+            echo pdf_analysis dir already exists
+        else
+            cd $MAIN_PATH/toolbox
+            mkdir pdf_analysis
+        fi
     done
 fi
 
