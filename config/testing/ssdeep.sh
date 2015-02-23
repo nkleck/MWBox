@@ -24,7 +24,6 @@ install_ssdeep() {
         echo Installing ssdeep and python-ssdeep
         aptitude install ssdeep cython
         pip install ssdeep
-        $INST subversion
         cd $MAIN_PATH/dev/
         svn checkout http://pyssdeep.googlecode.com/svn/trunk/ pyssdeep-read-only
         chown -R vagrant:vagrant pyssdeep-read-only

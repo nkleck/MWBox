@@ -10,7 +10,7 @@
 #install wine
 install_wine(){
     if [ -f /usr/bin/wine ]; then
-        continue
+        echo wine is already installed
     else
         dpkg --add-architecture i386
         apt-get update

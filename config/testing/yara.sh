@@ -44,7 +44,7 @@ install_yara_python(){
             pip install yara-python
         fi
         if [ -f /usr/local/lib/python2.7/dist-packages/yara_python-3.3.0.egg-info ]; then
-            continue
+            echo yara-python is already installed
         else
             cd $MAIN_PATH/dev/yara/
             rm -rf yara-python

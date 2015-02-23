@@ -7,16 +7,16 @@
 #   tools to look into
 #
 #totalhash.py - done
-#XORStrings
-#xorsearch
+#XORStrings - NEEDS WORK
+#XORSearch - NEEDS WORK
 #
 #   Executable analysis
 #exescan.py - NEEDS SOME FIXIN
 #pescanner.py - SCRIPT NEEDS SOME FIXIN
 #pyew - done
 #clamscan  -install.sh installs this, tools.sh unpacks signatures
-#objdump
-#radare
+#objdump  -really cool, already installed
+#radare - MAYBE on a future build r2 is CLI
 #
 #   office analysis
 #officeparser.py  -done
@@ -24,8 +24,8 @@
 #
 #   pdf analysis
 #pdf-parser - done
-#pdf.py
 #peepdf - done
+#pdf.py
 #origami - done
 #   - pdfextract, pdfwalker, pdfcop, pdfdecrypt, pdfencrypt, pdfdecompress,
 #   - pdfcocoon, pdfmetadata, pdf2graph, pdf2ruby, pdfsh,
@@ -34,6 +34,8 @@
 #
 #   shellcode analysis
 #sctest
+#DiStorm (dissemble shellcode)
+#libemu (emulate shellcode)
 #
 #   network traffic
 #t-shark  -done
@@ -55,14 +57,17 @@ UB_PATH=/usr/bin
 INST="apt-get install -y"
 TOOL_PATH=$MAIN_PATH/toolbox
 
+
 #Add stuff to $PATH
-PATH=$MAIN_PATH/toolbox:$PATH
-PATH=$MAIN_PATH/toolbox/av_scanners:$PATH
-PATH=$MAIN_PATH/toolbox/pdf_analysis:$PATH
-PATH=$MAIN_PATH/toolbox/pe_analysis:$PATH
-PATH=$MAIN_PATH/toolbox/office_analysis:$PATH
-PATH=$MAIN_PATH/toolbox/recon:$PATH
-PATH=$MAIN_PATH/toolbox/yara_scripts:$PATH
+PATH=$PATH:$MAIN_PATH/toolbox
+PATH=$PATH:$MAIN_PATH/toolbox/recon
+PATH=$PATH:$MAIN_PATH/toolbox/file_analysis
+PATH=$PATH:$MAIN_PATH/toolbox/office_analysis
+PATH=$PATH:$MAIN_PATH/toolbox/pe_analysis
+PATH=$PATH:$MAIN_PATH/toolbox/av_scanners
+PATH=$PATH:$MAIN_PATH/toolbox/pdf_analysis
+PATH=$PATH:$MAIN_PATH/toolbox/yara_scripts
+
 
 
 exec > >(tee -a $LOG_PATH/install.log)
@@ -90,6 +95,67 @@ echo Installing scripts...
 
 $INST html2text
 
+# install and build Jsunpack-n: includes spidermonkey, pdf.py,
+#install jsunpack-n
+#   - includes spidermonkey, pdf.py,
+
+install_jsunpack-n() {
+    if [ -f $MAIN_PATH/dev/jsunpack-n/depends/js-1.8.0-rc1-src/Linux_All_OPT.OBJ/js ]; then
+        echo jsunpack-n is already installed
+    else
+        echo installing jsunpack-n
+        cd $MAIN_PATH/dev
+        svn checkout http://jsunpack-n.googlecode.com/svn/trunk/ jsunpack-n
+        cd $MAIN_PATH/dev/jsunpack-n/depends
+        tar xvfz js-1.8.0-rc1-src.tar.gz
+        cd js-1.8.0-rc1-src
+        make BUILD_OPT=1 -f Makefile.ref
+#        echo 'export PATH="$PATH=:$MAIN_PATH/dev/jsunpack-n/depends/js-1.8.0-rc1-src/Linux_All_OPT.OBJ/";' >> ~/.bashrc
+#        . ~/.bashrc
+        if [ -f /usr/local/bin/yara ]; then
+            echo yara is already installed
+        else
+            echo Installing yara. . .
+            cd $MAIN_PATH/dev/
+            git clone https://github.com/plusvic/yara.git yara
+            cd yara
+            ./bootstrap.sh
+            ./configure
+            make
+            make install
+        fi
+        cat /etc/ld.so.conf | grep -q "/usr/local/lib"
+        if [ $? -ne 0 ]; then
+            echo "/usr/local/lib/" | sudo tee -a /etc/ld.so.conf
+            ldconfig
+        fi
+        if [ -f /usr/local/lib/python2.7/dist-packages/yara_python-3.3.0.egg-info ]; then
+            echo yara-python already installed
+        else
+            if [ -f $MAIN_PATH/dev/yara/yara-python/setup.py ]; then
+                echo installing yara-python
+                cd $MAIN_PATH/dev/yara/yara-python/
+                python setup.py build
+                python setup.py install
+            else
+                pip install yara-python
+            fi
+            if [ -f /usr/local/lib/python2.7/dist-packages/yara_python-3.3.0.egg-info ]; then
+                echo yara-python succcessfully installed
+            else
+                cd $MAIN_PATH/dev/yara/
+                rm -rf yara-python
+                pip install yara-python
+                ls /usr/local/lib/python2.7/dist-packages/yara_python-3.3.0.egg-info;
+                if [ $? -ne 0 ]; then
+                    echo -e "yara-python failed to install. manually try installing it.\nfollow instructions at http://yara.readthedocs.org/en/v3.3.0/gettingstarted.html\n -or- remove the yara-python dir and $ sudo pip install yara-python"
+                fi
+            fi
+        fi
+    fi
+}
+
+
 #Install Stream
 install_stream() {
     if [ -f /usr/bin/stream ]; then
@@ -100,6 +166,7 @@ install_stream() {
     fi
 }
 
+
 #Install pdftk
 install_pdftk() {
     if [ -f /usr/bin/pdftk ]; then
@@ -108,6 +175,7 @@ install_pdftk() {
         apt-get install -y pdftk
     fi
 }
+
 
 # Install pdftotext
 install_pdftotext() {
@@ -250,8 +318,6 @@ install_totalhash() {
 
 #install XORStrings
 #requires wine
-#usage: wine XORStrings -m <path to file> >> report.txt
-#use the output into a file, because wine dickers up a bit and can be difficult to read
 install_xorstrings() {
     if [ -f $TOOL_PATH/file_analysis/XORStrings/xorstrings.exe ]; then
         echo XORStrings already installed
@@ -260,12 +326,31 @@ install_xorstrings() {
         wget https://didierstevens.com/files/software/XORStrings_V0_0_1.zip
         unzip XORStrings_V0_0_1.zip -d XORStrings
         rm XORStrings_V0_0_1.zip
-        PATH=$PATH:$TOOL_PATH/file_analysis/XORStrings
+        chmod +x $TOOL_PATH/file_analysis/XORStrings/xorstrings.exe
+        PATH=$PATH:$MAIN_PATH/toolbox/file_analysis/XORStrings
+#PROBLEM, CANNOT GET PATH TO WORK from path.
+#the only time it works is if i drive to the directory with .exe and use $ wine xorstrings.exe -m <path to file>
+# in order to see it from path, need to chmod +x,
+# there is a OSX version, doesnt work here. so using wine with the exe, can call exe from path,
+# but need to back curser and add wine before it, and doesnt call it at that point
     fi
 }
 
 
 #install XORSearch
+install_xorsearch() {
+    if [ -f $TOOL_PATH/file_analysis/XORSearch/Linux/xorsearch ]; then
+        echo XORSearch already installed
+    else
+        cd $TOOL_PATH/file_analysis
+        wget https://didierstevens.com/files/software/XORSearch_V1_11_1.zip
+        unzip XORSearch_V1_11_1.zip -d XORSearch
+        rm XORSearch_V1_11_1.zip
+        chmod +x $TOOL_PATH/file_analysis/XORSearch/Linux/xorsearch
+        PATH=$PATH:$TOOL_PATH/file_analysis/XORSearch/Linux
+    fi
+}
+
 
 
 
@@ -279,8 +364,9 @@ install_exescan() {
         wget http://securityxploded.com/getfile_direct.php?id=4011 -O exescan.zip
         unzip exescan.zip
         rm exescan.zip
+        chmod +x $TOOL_PATH/pe_analysis/ExeScan/exescan.py
+#if i chmod +x, i can call it from path, but can execute it, if i dont, i can execute it as long as i am in its current dir
         PATH=$PATH:$TOOL_PATH/pe_analysis/ExeScan
-#PROBLEM, CANNOT CALL IT FROM PATH
     fi
 }
 
@@ -423,6 +509,7 @@ EDAILY="Unpacking clamav daily.cvd signatures failed\nYou will need to run sudo 
 
 #execute functions below this line
 modify_wget
+install_jsunpack-n
 install_stream
 install_pdftk
 install_pdftotext
@@ -436,6 +523,7 @@ install_officeparser
 install_officemalscanner
 install_totalhash
 install_xorstrings
+install_xorsearch
 install_exescan
 install_pyew
 install_dnsmap

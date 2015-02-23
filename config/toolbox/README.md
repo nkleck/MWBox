@@ -45,6 +45,10 @@ Install this vagrantbox
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Initializing the GUI
+
+Some tools like pdfwalker require the use of a GUI. see below for GUI initialization
+
 To turn the GUI feature on/off, install the GUI, and check if it is installed
 go to the config dir and run the gui.sh script
 
@@ -60,14 +64,14 @@ $ vagrant ssh
 - ignore the GUI box that opens at this point, you need to initiate one from within vagrant
 
 
-initializing the GUI, some tools require the GUI
+initializing the GUI
 $ sudo startxfce4&
 
-logout
-- in the GUI, open XTerm]
+logout of GUI but keep vagrant session open
+- in the GUI, open XTerm
 $ xfce4-session-logout
 - this still leaves you logged into your vagrant session
-- if you close the xfce4 via Virtualbox, it will end vagrant session
+- if you close the xfce4 via Virtualbox, it will halt the vagrant box
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Anonymous web
@@ -94,24 +98,31 @@ pdftk
 $ pdftk file.pdf output file.unc.pdf uncompress
 
 AnalyzePDF
+- 
 $ python AnalyzePDF.py <test>.pdf
 
 pdfxray_lite
+- 
 $ python pdfxray_lite -f <file> -r report
 -drive to the report.html file and open it (a browser will open it)
 -or use html2text to convert it and read
     - html2text report >> output.txt
 
 pdf-parser.py
-Usage: pdf-parser.py [options] pdf-file
+- follow tags or objects in pdf's
+Usage: pdf-parser.py [options] <file.pdf>
 - pdf-parser.py -h --help for options
 
 pdfwalker
+- analyze objects and streams in pdf
 - requires the gui tool
 $ startxfce4&
-- in GUI: Applications>System>XTerm 
-Usage: pdfwakder file.pdf
+- in GUI: Applications>System>XTerm
+- within XTerm the following usage:
+$ pdfwakder file.pdf
 
+pdf.py
+extract javasripts from pdf files
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -127,6 +138,30 @@ typical usage: wine OfficeMalScanner <file> scan >> output.txt
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+File Analysis
+
+XORStrings
+#use the output into a file, because wine dickers up a bit and can be difficult to read
+$ wine xorstrings.exe -m <path to file> >> output.txt
+
+XORSearch
+#does not require wine, but can run with wine --not recommended
+$ xorsearch [-option] <file> string|hex|rule
+can output to results by adding to the end  >> output.txt
+
+objdump 
+- examines .o and a.out(files without extensions) and executable file(s)
+- already installed in ubuntu
+
+useage:
+archive headers: $ objdump -a <file>
+file headers: $ objdump -f <file>
+disassemble-all: $ objdump -D <file> >> output.txt
+display full contents: $ objdump -s <file> >> output.txt
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Executable analysis
 

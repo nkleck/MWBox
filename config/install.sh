@@ -69,7 +69,7 @@ initial_setup() {
     echo Installation was ran on `date` >> $LOG_PATH/install.log
     apt-get update
     apt-get -y upgrade
-    $INST git libtool automake unzip
+    $INST git libtool automake unzip subversion
     echo Initial setup complete. . . lots more to go!
 }
 
@@ -178,7 +178,7 @@ install_yara_python(){
             pip install yara-python
         fi
         if [ -f /usr/local/lib/python2.7/dist-packages/yara_python-3.3.0.egg-info ]; then
-            continue
+            echo yara-python successfully installed
         else
             cd $MAIN_PATH/dev/yara/
             rm -rf yara-python
@@ -206,7 +206,6 @@ install_ssdeep() {
         echo Installing ssdeep and python-ssdeep
         aptitude install ssdeep cython
         pip install ssdeep
-        $INST subversion
         cd $MAIN_PATH/dev/
         svn checkout http://pyssdeep.googlecode.com/svn/trunk/ pyssdeep-read-only
         chown -R vagrant:vagrant pyssdeep-read-only
@@ -221,7 +220,7 @@ install_ssdeep() {
 #install wine
 install_wine(){
     if [ -f /usr/bin/wine ]; then
-        continue
+        echo wine is already installed
     else
         dpkg --add-architecture i386
         apt-get update
