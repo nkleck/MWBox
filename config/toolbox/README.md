@@ -131,8 +131,15 @@ typical usage: wine OfficeMalScanner <file> scan >> output.txt
 Executable analysis
 
 exeScan
-- requires wine
-usage: $ wine exescan -a <path to exe file>
+usage: $ exescan -a <path to exe file>
+-a advanced scan with anomaly detection
+-b display basic information
+-m scan for commonly known malware APIs
+-i display import/export table
+-p display PE header
+
+
+
 
 
 

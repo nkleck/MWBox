@@ -11,9 +11,9 @@
 #xorsearch
 #
 #   Executable analysis
-#exescan.py
-#pescanner.py - needs some fixin
-#pyew
+#exescan.py - NEEDS SOME FIXIN
+#pescanner.py - SCRIPT NEEDS SOME FIXIN
+#pyew - done
 #clamscan  -install.sh installs this, tools.sh unpacks signatures
 #objdump
 #radare
@@ -59,7 +59,7 @@ TOOL_PATH=$MAIN_PATH/toolbox
 PATH=$MAIN_PATH/toolbox:$PATH
 PATH=$MAIN_PATH/toolbox/av_scanners:$PATH
 PATH=$MAIN_PATH/toolbox/pdf_analysis:$PATH
-PATH=$MAIN_PATH/toolbox/pe_scripts:$PATH
+PATH=$MAIN_PATH/toolbox/pe_analysis:$PATH
 PATH=$MAIN_PATH/toolbox/office_analysis:$PATH
 PATH=$MAIN_PATH/toolbox/recon:$PATH
 PATH=$MAIN_PATH/toolbox/yara_scripts:$PATH
@@ -180,7 +180,9 @@ install_pdfparser() {
 }
 
 
-#install origami: pdfextract, pdfwalker, pdfcop, pdfdecrypt, pdfencrypt, pdfdecompress, pdfcocoon, pdfmetadata, pdf2graph, pdf2ruby, pdfsh, pdfexplode, pdf2ps, pdf2pdfa, pdf2dsc
+# install origami: pdfextract, pdfwalker, pdfcop, pdfdecrypt,
+#    pdfencrypt, pdfdecompress, pdfcocoon, pdfmetadata,
+#    pdf2graph, pdf2ruby, pdfsh, pdfexplode, pdf2ps, pdf2pdfa, pdf2dsc
 install_origami() {
     if [ -f /usr/local/bin/pdfcop ]; then
         echo origami tools are already installed
@@ -227,7 +229,8 @@ install_officemalscanner() {
         wget http://www.reconstructer.org/code/OfficeMalScanner.zip
         unzip OfficeMalScanner.zip -d officemalscanner
         rm $TOOL_PATH/office_analysis/OfficeMalScanner.zip
-        PATH=$PATH:$MAIN_PATH/toolbox/office_analysis/officemalscanner #this path does not seem to work
+        PATH=$PATH:$MAIN_PATH/toolbox/office_analysis/officemalscanner
+#PROBLEM, CANNOT CALL IT FROM PATH
     fi
 }
 
@@ -244,6 +247,34 @@ install_totalhash() {
     fi
 }
 
+
+# Exescan install
+install_exescan() {
+    if [ -f $TOOL_PATH/pe_analysis/ExeScan/exescan.py ]; then
+        echo ExeScan is already installed
+    else
+        cd $TOOL_PATH/pe_analysis
+        wget http://securityxploded.com/getfile_direct.php?id=4011 -O exescan.zip
+        unzip exescan.zip
+        rm exescan.zip
+        PATH=$PATH:$TOOL_PATH/pe_analysis/ExeScan
+#PROBLEM, CANNOT CALL IT FROM PATH
+    fi
+}
+
+
+#install pyew
+install_pyew() {
+    if [ -f $TOOL_PATH/pe_analysis/pyew-2.0-linux/pyew.py ]; then
+        echo pyew already installed
+    else
+        cd $TOOL_PATH/pe_analysis
+        wget https://pyew.googlecode.com/files/pyew-2.0-linux-x86.tar.gz
+        tar -zxvf pyew-2.0-linux-x86.tar.gz
+        rm pyew-2.0-linux-x86.tar.gz
+        PATH=$PATH:$TOOL_PATH/pe_analysis/pyew-2.0-linux
+    fi
+}
 
 
 
@@ -385,6 +416,8 @@ install_peepdf
 install_officeparser
 install_officemalscanner
 install_totalhash
+install_exescan
+install_pyew
 install_dnsmap
 install_tshark
 install_tcpdump

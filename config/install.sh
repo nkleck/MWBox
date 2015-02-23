@@ -38,10 +38,16 @@ else
             mkdir file_analysis
         fi
         if [ -d $MAIN_PATH/toolbox/office_analysis ]; then
-            echo file_analysis dir already exists
+            echo office_analysis dir already exists
         else
             cd $MAIN_PATH/toolbox
             mkdir office_analysis
+        fi
+        if [ -d $MAIN_PATH/toolbox/pe_analysis ]; then
+            echo pe_analysis dir already exists
+        else
+            cd $MAIN_PATH/toolbox
+            mkdir pe_analysis
         fi
     done
 fi
