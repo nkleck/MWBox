@@ -248,6 +248,28 @@ install_totalhash() {
 }
 
 
+#install XORStrings
+#requires wine
+#usage: wine XORStrings -m <path to file> >> report.txt
+#use the output into a file, because wine dickers up a bit and can be difficult to read
+install_xorstrings() {
+    if [ -f $TOOL_PATH/file_analysis/XORStrings/xorstrings.exe ]; then
+        echo XORStrings already installed
+    else
+        cd $TOOL_PATH/file_analysis
+        wget https://didierstevens.com/files/software/XORStrings_V0_0_1.zip
+        unzip XORStrings_V0_0_1.zip -d XORStrings
+        rm XORStrings_V0_0_1.zip
+        PATH=$PATH:$TOOL_PATH/file_analysis/XORStrings
+    fi
+}
+
+
+#install XORSearch
+
+
+
+
 # Exescan install
 install_exescan() {
     if [ -f $TOOL_PATH/pe_analysis/ExeScan/exescan.py ]; then
@@ -275,9 +297,6 @@ install_pyew() {
         PATH=$PATH:$TOOL_PATH/pe_analysis/pyew-2.0-linux
     fi
 }
-
-
-
 
 
 #install dnsmap
@@ -416,6 +435,7 @@ install_peepdf
 install_officeparser
 install_officemalscanner
 install_totalhash
+install_xorstrings
 install_exescan
 install_pyew
 install_dnsmap
