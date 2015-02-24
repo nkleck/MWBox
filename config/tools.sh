@@ -199,6 +199,11 @@ install_pdfxray_lite() {
 }
 
 
+#diierstevens suite
+#https://didierstevens.com/files/software/DidierStevensSuite.zip
+#maybe requires
+#https://didierstevens.com/files/software/Ariad_V0_0_0_9.zip
+
 # installing pdfid
 install_pdfid() {
     if [ -f $TOOL_PATH/pdf_analysis/pdfid/pdfid.py ]; then
