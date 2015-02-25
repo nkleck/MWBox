@@ -6,9 +6,11 @@
 #
 #   tools to look into
 #
+#   GO INTO MWCB SCRIPTS ALREADY HAVE, SEE IF CAN GET THEM RATHER THAN STORE THEM, AND THEN GO THROUGH THEIR SETUP
+#
 #totalhash.py - done
-#XORStrings - NEEDS WORK
-#XORSearch - NEEDS WORK
+#XORStrings - done
+#XORSearch - done
 #
 #   Executable analysis
 #exescan.py - NEEDS SOME FIXIN
@@ -32,7 +34,7 @@
 #   - pdfexplode, pdf2ps, pdf2pdfa, pdf2dsc
 #
 #
-#   shellcode analysis
+#   shellcode analysis - STILL TO DO
 #sctest
 #DiStorm (dissemble shellcode)
 #libemu (emulate shellcode)
@@ -197,14 +199,20 @@ install_pdfxray_lite() {
 
 #install didierstevens suite
 install_dssuite() {
-
+    if [ $TOOL_PATH/DidierStevensSuite/pdf-parser.py ]; then
+        echo didier stevens suite already installed
+    else
+        wget https://didierstevens.com/files/software/DidierStevensSuite.zip
+        unzip DidierStevensSuite.zip
+        rm DidierStevensSuite.zip
+        sudo chmod +x $TOOL_PATH/pdf_analysi/DidierStevensSuite/*
+        sudo chmod +x $TOOL_PATH/pdf_analysi/DidierStevensSuite/Linux/*
+        sudo chmod +x $TOOL_PATH/pdf_analysi/DidierStevensSuite/OSX/*
+        PATH=$PATH:$MAIN_PATH/toolbox/DidierStevensSuite
+        PATH=$PATH:$MAIN_PATH/toolbox/DidierStevensSuite/Linux
+        PATH=$PATH:$MAIN_PATH/toolbox/DidierStevensSuite/OSX
+    fi
 }
-
-
-#diierstevens suite
-#https://didierstevens.com/files/software/DidierStevensSuite.zip
-#maybe requires
-#https://didierstevens.com/files/software/Ariad_V0_0_0_9.zip
 
 # installing pdfid
 install_pdfid() {
@@ -216,6 +224,7 @@ install_pdfid() {
         unzip pdfid_v0_2_1.zip -d pdfid
         chmod +x $TOOL_PATH/pdf_analysis/pdfid/pdfid.py
         rm pdfid_v0_2_1.zip
+
         PATH=$MAIN_PATH/toolbox/pdf_analysis/pdfid:$PATH
     fi
 }
@@ -450,7 +459,6 @@ install_proxychains() {
     else
         echo Installing proxychains. . .
         $INST proxychains
-        echo proxychains installation complete
     fi
 }
 
@@ -521,16 +529,17 @@ install_stream
 install_pdftk
 install_pdftotext
 install_pdfxray_lite
-install_pdfid
+install_dssuite
+#install_pdfid
 install_AnalyzePDF
 install_origami
-install_pdfparser
+#install_pdfparser
 install_peepdf
 install_officeparser
 install_officemalscanner
 install_totalhash
-install_xorstrings
-install_xorsearch
+#install_xorstrings
+#install_xorsearch
 install_exescan
 install_pyew
 install_dnsmap
@@ -550,7 +559,7 @@ append_path() {
         echo PATH="$PATH" >> /home/vagrant/.bashrc
     fi
 }
-#do i need to echo export PATH="$PATH" above? figure it out
-
 
 append_path
+
+echo -e "Your Tools setup is complete.\nSee the install.log file in logs for details\nand check the install-errors.log for information \non any errors during installation."
