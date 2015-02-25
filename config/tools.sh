@@ -543,5 +543,7 @@ append_path() {
         echo PATH="$PATH" >> $HOME/.bashrc
     fi
 }
+#do i need to echo export PATH="$PATH" above? figure it out
+
 
 append_path
