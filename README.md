@@ -53,6 +53,8 @@ $ vagrant destroy
 # In the box
 there are a number of toolsets for file analysis in the box. All of the tools are open source. majority of them are in the toolbox directory. more are linked to your PATH. for a quick reference on using each tool, see the README in the toolbox directory. for a more detailed instructions on using them, see the specific pages related to each tool. Some are linked below:
 
+See /toolbox/README.md for details on tool usage, GUI, anonymous queries, etc
+
 https://www.torproject.org/
 
 http://yara.readthedocs.org/en/v3.2.0/index.html
@@ -60,3 +62,11 @@ http://yara.readthedocs.org/en/v3.2.0/index.html
 http://www.clamav.net/index.html
 
 https://github.com/9b/pdfxray_lite
+
+
+# Installing without Vagrant
+if you are going to run this without using Vagrantbox, you will need to change 1 line in the bootstrap.sh script
+- change:
+cd /vagrant
+- to whatever directory you are installing this to on the non-vagrant system
+cd /YOURDIRECTORY
