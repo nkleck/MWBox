@@ -47,7 +47,7 @@
 #       include a how-to use the GUI for some tools like pdfwalker
 
 
-
+cd
 
 
 #define global variables
@@ -105,9 +105,9 @@ install_jsunpack-n() {
         svn checkout http://jsunpack-n.googlecode.com/svn/trunk/ jsunpack-n
         cd $MAIN_PATH/dev/jsunpack-n/depends
         tar xvfz js-1.8.0-rc1-src.tar.gz
-        cd js-1.8.0-rc1-src
+        cd $MAIN_PATH/dev/jsunpack-n/depends/js-1.8.0-rc1-src
         make BUILD_OPT=1 -f Makefile.ref
-        PATH=$PATH=:$MAIN_PATH/dev/jsunpack-n/depends/js-1.8.0-rc1-src/
+        PATH=$PATH:$MAIN_PATH/dev/jsunpack-n/depends/js-1.8.0-rc1-src/
         if [ -f /usr/local/bin/yara ]; then
             echo yara is already installed
         else
@@ -192,6 +192,12 @@ install_pdfxray_lite() {
         git clone https://github.com/9b/pdfxray_lite
         PATH=$PATH:$MAIN_PATH/toolbox/pdf_analysis/pdfxray_lite
     fi
+}
+
+
+#install didierstevens suite
+install_dssuite() {
+
 }
 
 
@@ -536,11 +542,12 @@ unpack_clamav
 
 
 #append new paths to .bashrc
+#IF YOU ARE NOT USING VAGRANT, CHANGE /home/vagrant/.bashrc TO $HOME/.bashrc
 append_path() {
-    cat $HOME/.bashrc | grep -q toolbox
+    cat /home/vagrant/.bashrc | grep -q toolbox
     if [ $? -ne 0 ]; then
-        echo -e "\n" >> $HOME/.bashrc
-        echo PATH="$PATH" >> $HOME/.bashrc
+        echo -e "\n" >> /home/vagrant/.bashrc
+        echo PATH="$PATH" >> /home/vagrant/.bashrc
     fi
 }
 #do i need to echo export PATH="$PATH" above? figure it out
