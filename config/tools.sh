@@ -95,10 +95,7 @@ echo Installing scripts...
 
 $INST html2text
 
-# install and build Jsunpack-n: includes spidermonkey, pdf.py,
-#install jsunpack-n
-#   - includes spidermonkey, pdf.py,
-
+# install and build Jsunpack-n: includes spidermonkey, pdf.py
 install_jsunpack-n() {
     if [ -f $MAIN_PATH/dev/jsunpack-n/depends/js-1.8.0-rc1-src/Linux_All_OPT.OBJ/js ]; then
         echo jsunpack-n is already installed
@@ -110,8 +107,7 @@ install_jsunpack-n() {
         tar xvfz js-1.8.0-rc1-src.tar.gz
         cd js-1.8.0-rc1-src
         make BUILD_OPT=1 -f Makefile.ref
-#        echo 'export PATH="$PATH=:$MAIN_PATH/dev/jsunpack-n/depends/js-1.8.0-rc1-src/Linux_All_OPT.OBJ/";' >> ~/.bashrc
-#        . ~/.bashrc
+        PATH=$PATH=:$MAIN_PATH/dev/jsunpack-n/depends/js-1.8.0-rc1-src/
         if [ -f /usr/local/bin/yara ]; then
             echo yara is already installed
         else
@@ -537,3 +533,15 @@ install_tcpdump
 install_nmap
 install_proxychains
 unpack_clamav
+
+
+#append new paths to .bashrc
+append_path() {
+    cat $HOME/.bashrc | grep -q toolbox
+    if [ $? -ne 0 ]; then
+        echo -e "\n" >> $HOME/.bashrc
+        echo PATH="$PATH" >> $HOME/.bashrc
+    fi
+}
+
+append_path
