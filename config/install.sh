@@ -16,6 +16,7 @@ MAIN_PATH=`pwd`
 LOG_PATH=$MAIN_PATH/logs
 UB_PATH=/usr/bin
 INST="apt-get install -y"
+TOOL_PATH=$MAIN_PATH/toolbox
 
 if [ -d $MAIN_PATH/dev ]; then
     echo initial config already ran, check for updates instead...
@@ -242,11 +243,11 @@ install_wine
 
 
 #shorten the working path, long paths are annoying
-cd /home/vagrant/
-cat .bashrc | fgrep -q "PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$ '"
+cat $HOME/.bashrc | fgrep -q "PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$ '"
     if [ $? -ne 0 ]; then
-        echo "PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$ '" >> .bashrc
-        echo "PS1='\u:\W$ '" >> .bashrc
+        echo "\n" >> $HOME/.bashrc
+        echo "PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$ '" >> $HOME/.bashrc
+        echo "PS1='\u:\W$ '" >> $HOME/.bashrc
     fi
 
 echo -e "Your setup is complete.\nSee the install.log file in logs for details\nand check the install-errors.log for information \non any errors during installation."
