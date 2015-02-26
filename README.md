@@ -65,8 +65,22 @@ https://github.com/9b/pdfxray_lite
 
 
 # Installing without Vagrant
-if you are going to run this without using Vagrantbox, you will need to change 1 line in the bootstrap.sh script
+if you are going to run this without using Vagrantbox, you will need to change a couple lines in the install.sh script and the tools.sh script. You will not run the bootstrap.sh script
+
+In install.sh
 - change:
-cd /vagrant
-- to whatever directory you are installing this to on the non-vagrant system
-cd /YOURDIRECTORY
+at to bottom there is 4 instances of  /home/vagrant/.bashrc
+- change this to $HOME/.bashrc
+
+
+In tools.sh
+-change:
+/home/vagrant/.bashrc
+to 
+$HOME/.bashrc
+
+now you can run each scrips in the following sequence
+sudo ./install.sh
+sudo ./tools.sh
+
+
