@@ -6,46 +6,19 @@
 #
 #   tools to look into
 #
-#   GO INTO MWCB SCRIPTS ALREADY HAVE, SEE IF CAN GET THEM RATHER THAN STORE THEM, AND THEN GO THROUGH THEIR SETUP
 #
-#totalhash.py - done
-#XORStrings - done
-#XORSearch - done
 #
-#   Executable analysis
-#exescan.py - NEEDS SOME FIXIN
-#pescanner.py - SCRIPT NEEDS SOME FIXIN
-#pyew - done
-#clamscan  -install.sh installs this, tools.sh unpacks signatures
-#objdump  -really cool, already installed
-#radare - MAYBE on a future build r2 is CLI
 #
-#   office analysis
-#officeparser.py  -done
-#officeMalScanner - done
-#
-#   pdf analysis
-#pdf-parser - done
-#peepdf - done
-#pdf.py
-#origami - done
-#   - pdfextract, pdfwalker, pdfcop, pdfdecrypt, pdfencrypt, pdfdecompress,
-#   - pdfcocoon, pdfmetadata, pdf2graph, pdf2ruby, pdfsh,
-#   - pdfexplode, pdf2ps, pdf2pdfa, pdf2dsc
-#
+#   STILL TO DO
+#   - exescan.py - NEEDS SOME FIXIN
+#   - pescanner.py - SCRIPT NEEDS SOME FIXIN
 #
 #   shellcode analysis - STILL TO DO
-#sctest
-#DiStorm (dissemble shellcode)
-#libemu (emulate shellcode)
-#
-#   network traffic
-#t-shark  -done
-#tcp-dump  -done
-#dnsmap - done
+#       - libemu (emulate shellcode)
+#   - GO INTO MWCB SCRIPTS ALREADY HAVE, SEE IF CAN GET THEM RATHER THAN STORE THEM, AND THEN GO THROUGH THEIR SETUP
 #
 #
-#   WRITEUP ON EACH IN README in TOOLBOX AND WHAT EACH IS GOOD TO USE ON
+#   - WRITEUP ON EACH IN README in TOOLBOX AND WHAT EACH IS GOOD TO USE ON
 #       include a how-to use the GUI for some tools like pdfwalker
 
 
@@ -154,6 +127,29 @@ install_jsunpack-n() {
 }
 
 
+#Install libemu - emulate shellcode
+install_libemu() {
+if [ -f xxxxxx ]; then
+echo libemu is already installed
+else
+git clone git://git.carnivore.it/libemu.git libemu
+cd libemu
+auto reconf -v -i
+./configure --prefix=/opt/libemu
+# --prefix=enable-python-bindings
+# --enable-debug
+sudo make install
+fi
+}
+
+#libemu usage:
+# http://libemu.carnivore.it/
+# http://www.aldeid.com/wiki/Libemu
+# $ emunids
+# $ cpurun
+# $ sctest
+
+
 #Install Stream
 install_stream() {
     if [ -f /usr/bin/stream ]; then
@@ -199,7 +195,7 @@ install_pdfxray_lite() {
 
 #install didierstevens suite
 install_dssuite() {
-    if [ $TOOL_PATH/DidierStevensSuite/pdf-parser.py ]; then
+    if [ -f $TOOL_PATH/DidierStevensSuite/pdf-parser.py ]; then
         echo didier stevens suite already installed
     else
         wget https://didierstevens.com/files/software/DidierStevensSuite.zip
