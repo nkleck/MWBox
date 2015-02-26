@@ -66,7 +66,7 @@ modify_wget() {
 }
 
 
-echo Installing scripts...
+echo Installing tools...
 
 $INST html2text
 
@@ -129,25 +129,18 @@ install_jsunpack-n() {
 
 #Install libemu - emulate shellcode
 install_libemu() {
-if [ -f xxxxxx ]; then
-echo libemu is already installed
-else
-git clone git://git.carnivore.it/libemu.git libemu
-cd libemu
-auto reconf -v -i
-./configure --prefix=/opt/libemu
-# --prefix=enable-python-bindings
-# --enable-debug
-sudo make install
-fi
-}
+    if [ -f $UB_PATH/sctest ]; then
+        echo libemu is already installed
+    else
+        $INST libemu2 graphviz
+    fi
+
 
 #libemu usage:
-# http://libemu.carnivore.it/
-# http://www.aldeid.com/wiki/Libemu
-# $ emunids
-# $ cpurun
 # $ sctest
+# $ sctest -Ss 10000000000 -vvv < shelcodeFile
+# $ sctest -Ss 10000000000 -G graph.dot < shelcodeFile
+# dot -T png -o graph.png graph.dot
 
 
 #Install Stream
@@ -521,6 +514,7 @@ EDAILY="Unpacking clamav daily.cvd signatures failed\nYou will need to run sudo 
 #execute functions below this line
 modify_wget
 install_jsunpack-n
+install_libemu
 install_stream
 install_pdftk
 install_pdftotext
