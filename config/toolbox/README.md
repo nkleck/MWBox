@@ -174,6 +174,20 @@ usage: $ exescan -a <path to exe file>
 -p display PE header
 
 
+pyew
+usage:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Shellcode analysis
+
+libemu usage:
+sctest
+$ sctest -Ss 10000000000 -vvv < shelcodeFile
+$ sctest -Ss 10000000000 -G graph.dot < shelcodeFile
+$ dot -T png -o graph.png graph.dot
+
+
 
 
 
