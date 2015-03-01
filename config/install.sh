@@ -247,7 +247,7 @@ install_wine
 #IF YOU ARE NOT USING VAGRANT, REPLACE THE /home/vagrant/.bashrc with $HOME/.bashrc in lines below
 cat $MAIN_PATH/.bashrc | fgrep -q "PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$ '"
     if [ $? -ne 0 ]; then
-        echo "\n" >> $MAIN_PATH/.bashrc
+        echo -e "\n" >> $MAIN_PATH/.bashrc
         echo "PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$ '" >> $MAIN_PATH/.bashrc
         echo "PS1='\u:\W$ '" >> $MAIN_PATH/.bashrc
     fi

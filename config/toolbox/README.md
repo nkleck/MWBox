@@ -1,51 +1,74 @@
 
 This installation of vagrantbox should be useful for malware analysis. Everything in here was made from free software. Do with it what you will, make it better.
 
-[NOTES]----------------------------------------------------------------------------
-The following programs were installed during the setup, hence the long installation.
-- Python and some of its dev’s
-- Tor
-- Proxychains
-- Yara
-- ssdeep
-- clamav
 
-Scripts added (script folder) for analysis
-- avsubmit.py
+# Tools in this box
+The following tools are available in this configuration, see below for usage
+- Python and some of its dev’s, most of the tools have python dependencies
+- clamscan
+- Tor
+- yara and yara-python
+- ssdeep
+- wine
+- a GUI, see the gui.sh script and frontpage README for information on usage 
+- wget aliases
 - av_multiscan.py
 - pescanner.py
-- clam_to_yara.py
-- pied_to_yara.py
+- capabilities.yara
+- clamav_to_yara.py
+- magic.yara
+- packer.yara
+- peid_to_yara.py
+- artifactscanner.py
+- avsubmit.py
 - dbmgr.py
+- jsunpack-n
+- libemu
+- stream
+- strings
+- pdftotext
+- pdfxray_lite
+- diderstevens tool suite
+- pdfid
+- AnalyzePDF
+- pdf-parser
+- Origami tool suite
+    - pdfextract
+    - pdfwalker - requires a GUI, see below 
+    - pdfcop
+    - pdfdecrypt
+    - pdfencrypt
+    - pdfdecompress 
+    - pdfcocoon
+    - pdfmetadata
+    - pdf2graph 
+    - pdf2ruby 
+    - pdfsh
+    - pdfexplode 
+    - pdf2ps
+    - pdf2pdfa 
+    - pdf2dsc
+- peepdf
+- officeparser.py
+- officemalscanner - requires wine for use, see below
+- totalhash.py
+- XORStrings
+- XORSearch
+- exescan
+- pyew
+- dnsmap
+- html2text
+- whois
+- dnsutils
+- pdftk
+- netcat
+- tshark
+- tcpdump
+- nmap
+- proxychains
 
 
-
-
-Things being needed done:
-- add a malware sandbox
-- build in error handling, output to log file
-	- tor installation needs a if then statement since there are different
-		ways to install the keys from the keyserver
-- build in error handling for some scripts, output to a log file
-- install WINE?
-- create a cleanup scrip that is last ran in bootstrap
-	- cleans up file locations
-	- moves setup scripts to config folder, hides config folder
-
-----------------------------------------------------------------------------------
-How To Do Stuff:
-
-Install this vagrantbox
-- copy the entire directory to the directory you wish to run vagrant from
-- in terminal navigate to the directory containing Vagrantfile
-- $ vagrant up
-	- it will now install the vagrant package, this will take a couple minutes
-- $ vagrant ssh
-	- logs into the vagrantbox
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Initializing the GUI
+# Initializing the GUI
 
 Some tools like pdfwalker require the use of a GUI. see below for GUI initialization
 
@@ -73,8 +96,9 @@ $ xfce4-session-logout
 - this still leaves you logged into your vagrant session
 - if you close the xfce4 via Virtualbox, it will halt the vagrant box
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Anonymous web
+# Tool Usage
+
+# Anonymous web
 - Tor
 - wget
 - proxychains
@@ -88,10 +112,11 @@ wget
 	$ wgie7 www.ipchicken.com
 	- check the return index.html for an ip addy, its not same as your public ip!
 
+proxychains
+- 
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-PDF Analysis
+# PDF Analysis
 
 pdftk
 - uncompress pdf streams for viewing in texteditor
@@ -125,9 +150,7 @@ pdf.py
 extract javasripts from pdf files
 
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Office Analysis
+# Office Analysis
 
 OfficeMalScanner
 -requires wine to run, its an .exe, wine is installed in the install.sh script
@@ -135,35 +158,32 @@ usage: wine OfficeMalScanner <PPT, DOC or XLS file> <scan | info> <brute> <debug
 help: wine OfficeMalScanner
 typical usage: wine OfficeMalScanner <file> scan >> output.txt
 
+Officeparser
+- 
 
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-File Analysis
+# File Analysis
 
 XORStrings
-#use the output into a file, because wine dickers up a bit and can be difficult to read
+use the output into a file, because wine dickers up a bit and can be difficult to read
 $ wine xorstrings.exe -m <path to file> >> output.txt
 
 XORSearch
-#does not require wine, but can run with wine --not recommended
+- does not require wine, but can run with wine --not recommended
 $ xorsearch [-option] <file> string|hex|rule
 can output to results by adding to the end  >> output.txt
 
 objdump 
 - examines .o and a.out(files without extensions) and executable file(s)
 - already installed in ubuntu
+- useage:
+    - archive headers: $ objdump -a <file>
+    - file headers: $ objdump -f <file>
+    - disassemble-all: $ objdump -D <file> >> output.txt
+    - display full contents: $ objdump -s <file> >> output.txt
 
-useage:
-archive headers: $ objdump -a <file>
-file headers: $ objdump -f <file>
-disassemble-all: $ objdump -D <file> >> output.txt
-display full contents: $ objdump -s <file> >> output.txt
 
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Executable analysis
+# Executable analysis
 
 exeScan
 usage: $ exescan -a <path to exe file>
@@ -177,15 +197,14 @@ usage: $ exescan -a <path to exe file>
 pyew
 usage:
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Shellcode analysis
+# Shellcode analysis
 
 libemu usage:
-sctest
-$ sctest -Ss 10000000000 -vvv < shelcodeFile
-$ sctest -Ss 10000000000 -G graph.dot < shelcodeFile
-$ dot -T png -o graph.png graph.dot
+- sctest
+- $ sctest -Ss 10000000000 -vvv < shelcodeFile
+- $ sctest -Ss 10000000000 -G graph.dot < shelcodeFile
+- $ dot -T png -o graph.png graph.dot
 
 
 

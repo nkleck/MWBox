@@ -43,23 +43,71 @@ To destroy the vm
 - $ vagrant destroy
 - at this point, you can delete the directory if you as well
 
-# In the box
-There are a number of toolsets for file analysis in the box. All of the tools are open source. majority of them are in the toolbox directory. more are linked to your PATH. for a quick reference on using each tool, see the README in the toolbox directory. for a more detailed instructions on using them, see the specific pages related to each tool. Some are linked below:
 
-See /toolbox/README.md for details on tool usage, GUI, anonymous queries, etc
-
-For a more detailed explanation of tool usage, see the following sites:
-
-https://www.torproject.org/
-
-http://yara.readthedocs.org/en/v3.2.0/index.html
-
-http://www.clamav.net/index.html
-
-https://github.com/9b/pdfxray_lite
-
-MORE SITES TO COME...
-
+# Tools in this box
+The following tools are available in this configuration, see toolbox/README.md for usage details
+- Python and some of its dev’s, most of the tools have python dependencies
+- clamscan
+- Tor
+- yara and yara-python
+- ssdeep
+- wine
+- a GUI, see the gui.sh script and frontpage README for information on usage 
+- wget aliases
+- av_multiscan.py
+- pescanner.py
+- capabilities.yara
+- clamav_to_yara.py
+- magic.yara
+- packer.yara
+- peid_to_yara.py
+- artifactscanner.py
+- avsubmit.py
+- dbmgr.py
+- jsunpack-n
+- libemu
+- stream
+- strings
+- pdftotext
+- pdfxray_lite
+- diderstevens tool suite
+- pdfid
+- AnalyzePDF
+- pdf-parser
+- Origami tool suite
+    - pdfextract
+    - pdfwalker - requires a GUI, see below 
+    - pdfcop
+    - pdfdecrypt
+    - pdfencrypt
+    - pdfdecompress 
+    - pdfcocoon
+    - pdfmetadata
+    - pdf2graph 
+    - pdf2ruby 
+    - pdfsh
+    - pdfexplode 
+    - pdf2ps
+    - pdf2pdfa 
+    - pdf2dsc
+- peepdf
+- officeparser.py
+- officemalscanner - requires wine for use, see below
+- totalhash.py
+- XORStrings
+- XORSearch
+- exescan
+- pyew
+- dnsmap
+- html2text
+- whois
+- dnsutils
+- pdftk
+- netcat
+- tshark
+- tcpdump
+- nmap
+- proxychains
 
 # Installing without Vagrant
 If you are going to run this without using Vagrantbox, you will need to change a couple lines in the install.sh script and the tools.sh script. You will not run the bootstrap.sh script
