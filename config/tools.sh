@@ -516,10 +516,10 @@ unpack_clamav
 #append new paths to .bashrc
 #IF YOU ARE NOT USING VAGRANT, CHANGE /home/vagrant/.bashrc TO $HOME/.bashrc
 append_path() {
-    cat /home/vagrant/.bashrc | grep -q toolbox
+    cat $MAIN_PATH/.bashrc | grep -q toolbox
     if [ $? -ne 0 ]; then
-        echo -e "\n" >> /home/vagrant/.bashrc
-        echo PATH="$PATH" >> /home/vagrant/.bashrc
+        echo -e "\n" >> $MAIN_PATH/.bashrc
+        echo PATH="$PATH" >> $MAIN_PATH/.bashrc
     fi
 }
 

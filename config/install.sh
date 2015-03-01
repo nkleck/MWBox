@@ -245,11 +245,11 @@ install_wine
 
 #shorten the working path, long paths are annoying
 #IF YOU ARE NOT USING VAGRANT, REPLACE THE /home/vagrant/.bashrc with $HOME/.bashrc in lines below
-cat /home/vagrant/.bashrc | fgrep -q "PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$ '"
+cat $MAIN_PATH/.bashrc | fgrep -q "PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$ '"
     if [ $? -ne 0 ]; then
-        echo "\n" >> /home/vagrant/.bashrc
-        echo "PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$ '" >> /home/vagrant/.bashrc
-        echo "PS1='\u:\W$ '" >> /home/vagrant/.bashrc
+        echo "\n" >> $MAIN_PATH/.bashrc
+        echo "PS1='\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]$ '" >> $MAIN_PATH/.bashrc
+        echo "PS1='\u:\W$ '" >> $MAIN_PATH/.bashrc
     fi
 
 echo -e "Your setup is complete.\nSee the install.log file in logs for details\nand check the install-errors.log for information \non any errors during installation."
