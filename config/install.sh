@@ -10,9 +10,10 @@
 #
 #----------------------------------------------------------------------------
 
-cd
+cd /home/vagrant    #remove this line if you are not using vagrant
 
 #define global variables
+SHARE_PATH=/vagrant         #remove this line if you are not using vagrant
 MAIN_PATH=`pwd`
 LOG_PATH=$MAIN_PATH/logs
 UB_PATH=/usr/bin
@@ -24,38 +25,43 @@ if [ -d $MAIN_PATH/dev ]; then
 else
     for d in 'dbfiles dev logs notes samples signatures sandbox'; do
         mkdir -p $MAIN_PATH/$d
-        if [ -d $MAIN_PATH/config/toolbox ]; then
-            mv $MAIN_PATH/config/toolbox $MAIN_PATH/toolbox
+        if [ -d $SHARE_PATH/config/toolbox ]; then
+            mv $SHARE_PATH/config/toolbox $TOOL_PATH
         fi
-        if [ -d $MAIN_PATH/toolbox/recon ]; then
+        if [ -d $TOOL_PATH/recon ]; then
             echo recon dir already exists
         else
-            cd $MAIN_PATH/toolbox
-            mkdir recon
+            mkdir $TOOL_PATH/recon
         fi
-        if [ -d $MAIN_PATH/toolbox/file_analysis ]; then
+        if [ -d $TOOL_PATH/file_analysis ]; then
             echo file_analysis dir already exists
         else
-            cd $MAIN_PATH/toolbox
-            mkdir file_analysis
+            mkdir $TOOL_PATH/file_analysis
         fi
-        if [ -d $MAIN_PATH/toolbox/office_analysis ]; then
+        if [ -d $TOOL_PATH/office_analysis ]; then
             echo office_analysis dir already exists
         else
-            cd $MAIN_PATH/toolbox
-            mkdir office_analysis
+            mkdir $TOOL_PATH/office_analysis
         fi
-        if [ -d $MAIN_PATH/toolbox/pe_analysis ]; then
+        if [ -d $TOOL_PATH/pe_analysis ]; then
             echo pe_analysis dir already exists
         else
-            cd $MAIN_PATH/toolbox
-            mkdir pe_analysis
+            mkdir $TOOL_PATH/pe_analysis
         fi
-        if [ -d $MAIN_PATH/toolbox/pdf_analysis ]; then
+        if [ -d $TOOL_PATH/pdf_analysis ]; then
             echo pdf_analysis dir already exists
         else
-            cd $MAIN_PATH/toolbox
-            mkdir pdf_analysis
+            mkdir $TOOL_PATH/pdf_analysis
+        fi
+        if [ -d $TOOL_PATH/av_scanners ]; then
+            echo av_scanners dir already exists
+        else
+            mkdir $TOOL_PATH/av_scanners
+        fi
+        if [ -d $TOOL_PATH/yara_scripts ]; then
+            echo yara_scripts dir already exists
+        else
+            mkdir $TOOL_PATH/yara_scripts
         fi
     done
 fi

@@ -10,7 +10,7 @@ Vagrant.configure(VAGRANTFILE_MALWARE_BOX) do |config|
 	config.vm.box = "ubuntu/trusty64"
 
 # Provisioning Script for initial setup and dependencies
-	config.vm.provision :shell, path: "config/bootstrap.sh",
+	config.vm.provision :shell, path: "config/bootstrap.sh"
 
 	config.vm.provider "virtualbox" do |v|
 		v.gui = false

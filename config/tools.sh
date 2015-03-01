@@ -24,7 +24,7 @@
 #   - PROBLEM: IF ITS A .py script, doenst call from path, even if the dir is in path
 
 
-cd
+cd /home/vagrant
 
 #define global variables
 MAIN_PATH=`pwd`
@@ -75,10 +75,10 @@ $INST html2text whois dnsutils pdftk netcat tshark tcpdump nmap proxychains
 
 #get a few tools from MWCB
 install_mwcb() {
-    mkdir $TOOL_PATH/mwcb
     if [ -f $TOOL_PATH/av_scanners/av_multiscan.py ]; then
         echo MWCB scripts already present
     else
+        mkdir $TOOL_PATH/mwcb
         cd $TOOL_PATH/mwcb
         svn checkout http://malwarecookbook.googlecode.com/svn/trunk/3/
         svn checkout http://malwarecookbook.googlecode.com/svn/trunk/4/
@@ -92,8 +92,9 @@ install_mwcb() {
         mv $TOOL_PATH/mwcb/4/12/artifactscanner.py $TOOL_PATH/av_scanners
         mv $TOOL_PATH/mwcb/4/4/avsubmit.py $TOOL_PATH/av_scanners
         mv $TOOL_PATH/mwcb/4/12/dbmgr.py $TOOL_PATH/av_scanners
+        rm -rf $TOOL_PATH/mwcb
     fi
-    rm -rf $TOOL_PATH/mwcb
+
 }
 
 
@@ -246,7 +247,7 @@ install_AnalyzePDF() {
     else
         cd $TOOL_PATH/pdf_analysis
         git clone https://github.com/hiddenillusion/AnalyzePDF.git
-        sed -i -e "s:\/usr\/local\/etc\/capabilities.yara:pdf_rules.yara:g" /vagrant/toolbox/pdf_analysis/AnalyzePDF/AnalyzePDF.py
+        sed -i -e "s:\/usr\/local\/etc\/capabilities.yara:pdf_rules.yara:g" $TOOL_PATH/pdf_analysis/AnalyzePDF/AnalyzePDF.py
         PATH=$PATH:$MAIN_PATH/toolbox/pdf_analysis/AnalyzePDF
         PATH=$PATH:$MAIN_PATH/toolbox/pdf_analysis/AnalyzePDF/extras
     fi
