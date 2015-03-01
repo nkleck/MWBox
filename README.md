@@ -65,21 +65,15 @@ MORE SITES TO COME...
 If you are going to run this without using Vagrantbox, you will need to change a couple lines in the install.sh script and the tools.sh script. You will not run the bootstrap.sh script
 
 In the install.sh script at to bottom there is 4 instances of $MAIN_PATH
-
-changefrom: $MAIN_PATH/.bashrc
-changeto: $HOME/.bashrc
-
+- changefrom: $MAIN_PATH/.bashrc
+- changeto: $HOME/.bashrc
 
 In tools.sh, make the same change
-
-changefrom: $MAIN_PATH/.bashrc
-
-changeto: $HOME/.bashrc
+- changefrom: $MAIN_PATH/.bashrc
+- changeto: $HOME/.bashrc
 
 now you can run each scrips in the following sequence
-
-sudo ./install.sh
-
-sudo ./tools.sh
+- sudo ./install.sh
+- sudo ./tools.sh
 
 
