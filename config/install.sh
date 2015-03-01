@@ -23,7 +23,7 @@ TOOL_PATH=$MAIN_PATH/toolbox
 if [ -d $MAIN_PATH/dev ]; then
     echo initial config already ran, check for updates instead...
 else
-    for d in 'dbfiles dev logs notes samples signatures sandbox'; do
+    for d in 'dbfiles dev logs samples signatures'; do
         mkdir -p $MAIN_PATH/$d
         if [ -d $SHARE_PATH/config/toolbox ]; then
             mv $SHARE_PATH/config/toolbox $TOOL_PATH
