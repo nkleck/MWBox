@@ -1,5 +1,5 @@
 # MWBox
-designed for Vagrant, but more flexible than that... maybe. Analyze malware
+Designed for Vagrant, but more flexible than that... maybe. Analyze malware
 
 # Requirements
 Virtualbox: download the latest version of Virtualbox
@@ -76,4 +76,7 @@ now you can run each scrips in the following sequence
 - sudo ./install.sh
 - sudo ./tools.sh
 
+
+# Questions, Comments, or whatever
+Everything contained in this box is from open source. If you would like to see somehting added to the box, send me a note on github. As others update their tools, this box may break. If that is the case, send a note or file an issue on github and I'll do what I can to correct the issue. 
 
