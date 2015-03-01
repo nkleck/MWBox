@@ -13,17 +13,18 @@
 #   - exescan.py - NEEDS SOME FIXIN
 #   - pescanner.py - SCRIPT NEEDS SOME FIXIN
 #
-#   shellcode analysis - STILL TO DO
-#       - libemu (emulate shellcode)
 #   - GO INTO MWCB SCRIPTS ALREADY HAVE, SEE IF CAN GET THEM RATHER THAN STORE THEM, AND THEN GO THROUGH THEIR SETUP
 #
 #
 #   - WRITEUP ON EACH IN README in TOOLBOX AND WHAT EACH IS GOOD TO USE ON
 #       include a how-to use the GUI for some tools like pdfwalker
+#       - do an install and see if each works, why not, and document its usage
+#
+#
+#   - PROBLEM: IF ITS A .py script, doenst call from path, even if the dir is in path
 
 
 cd
-
 
 #define global variables
 MAIN_PATH=`pwd`
@@ -54,13 +55,14 @@ modify_wget() {
     if grep -q usewithtor /home/vagrant/.profile; then
         echo wget aliases already set
     else
-        echo '# usewithtor wget aliases'
-        echo 'alias wgffu='\''usewithtor wget -U "Mozilla/5.0 (X11\; U\; Linux i686\; en-US\; rv:1.9.0.4) Gecko/2008111318 Ubuntu/8.10 (intrepid) Firefox/3.0.4" '\'' '
-        echo 'alias wgie='\''usewithtor wget -U "Mozilla/5.0 (Windows\; U\; Windows NT 5.1\; en-US\; rv:1.8.1.1)"  '\'' '
-        echo 'alias wgie1='\''usewithtor wget -U "Mozilla/4.0 (compatible\; MSIE 6.0\; Windows NT 5.1\; SV1)" '\'' '
-        echo 'alias wgie7='\''usewithtor wget -U "Mozilla/4.0 (compatible\; MSIE 7.0\; Windows NT 5.1\; .NET CLR 2.0.50727)" '\'' '
-        echo 'alias wgie10='\''usewithtor wget -U "Mozilla/5.0 (compatible\; MSIE 10.0\; Windows NT 6.1\; WOW64; Trident/6.0)" '\'' '
-        echo 'alias wgierss='\''usewithtor wget -U "Mozilla/4.0 (compatible\; MSIE 7.0\; Windows NT 5.1\; Trident/4.0\; InfoPath.2)" '\'' '
+        echo     >> /home/vagrant/.profile
+        echo '# usewithtor wget aliases' >> /home/vagrant/.profile
+        echo 'alias wgffu='\''usewithtor wget -U "Mozilla/5.0 (X11\; U\; Linux i686\; en-US\; rv:1.9.0.4) Gecko/2008111318 Ubuntu/8.10 (intrepid) Firefox/3.0.4" '\'' ' >> /home/vagrant/.profile
+        echo 'alias wgie='\''usewithtor wget -U "Mozilla/5.0 (Windows\; U\; Windows NT 5.1\; en-US\; rv:1.8.1.1)"  '\'' ' >> /home/vagrant/.profile
+        echo 'alias wgie1='\''usewithtor wget -U "Mozilla/4.0 (compatible\; MSIE 6.0\; Windows NT 5.1\; SV1)" '\'' ' >> /home/vagrant/.profile
+        echo 'alias wgie7='\''usewithtor wget -U "Mozilla/4.0 (compatible\; MSIE 7.0\; Windows NT 5.1\; .NET CLR 2.0.50727)" '\'' ' >> /home/vagrant/.profile
+        echo 'alias wgie10='\''usewithtor wget -U "Mozilla/5.0 (compatible\; MSIE 10.0\; Windows NT 6.1\; WOW64; Trident/6.0)" '\'' ' >> /home/vagrant/.profile
+        echo 'alias wgierss='\''usewithtor wget -U "Mozilla/4.0 (compatible\; MSIE 7.0\; Windows NT 5.1\; Trident/4.0\; InfoPath.2)" '\'' ' >> /home/vagrant/.profile
         echo wget aliases made
     fi
 }
@@ -68,7 +70,32 @@ modify_wget() {
 
 echo Installing tools...
 
-$INST html2text
+$INST html2text whois dnsutils pdftk netcat tshark tcpdump nmap proxychains
+
+
+#get a few tools from MWCB
+install_mwcb() {
+    mkdir $TOOL_PATH/mwcb
+    if [ -f $TOOL_PATH/av_scanners/av_multiscan.py ]; then
+        echo MWCB scripts already present
+    else
+        cd $TOOL_PATH/mwcb
+        svn checkout http://malwarecookbook.googlecode.com/svn/trunk/3/
+        svn checkout http://malwarecookbook.googlecode.com/svn/trunk/4/
+        mv $TOOL_PATH/mwcb/3/7/av_multiscan.py $TOOL_PATH/av_scanners
+        mv $TOOL_PATH/mwcb/3/8/pescanner.py $TOOL_PATH/pe_analysis
+        mv $TOOL_PATH/mwcb/3/5/capabilities.yara $TOOL_PATH/yara_scripts
+        mv $TOOL_PATH/mwcb/3/3/clamav_to_yara.py $TOOL_PATH/yara_scripts
+        mv $TOOL_PATH/mwcb/3/6/magic.yara $TOOL_PATH/yara_scripts
+        mv $TOOL_PATH/mwcb/3/4/packer.yara $TOOL_PATH/yara_scripts
+        mv $TOOL_PATH/mwcb/3/4/peid_to_yara.py $TOOL_PATH/yara_scripts
+        mv $TOOL_PATH/mwcb/4/12/artifactscanner.py $TOOL_PATH/av_scanners
+        mv $TOOL_PATH/mwcb/4/4/avsubmit.py $TOOL_PATH/av_scanners
+        mv $TOOL_PATH/mwcb/4/12/dbmgr.py $TOOL_PATH/av_scanners
+    fi
+    rm -rf $TOOL_PATH/mwcb
+}
+
 
 # install and build Jsunpack-n: includes spidermonkey, pdf.py
 install_jsunpack-n() {
@@ -78,6 +105,11 @@ install_jsunpack-n() {
         echo installing jsunpack-n
         cd $MAIN_PATH/dev
         svn checkout http://jsunpack-n.googlecode.com/svn/trunk/ jsunpack-n
+        cd $MAIN_PATH/dev/jsunpack-n/depends
+        tar xvfz pynids-0.6.1.tar.gz
+        cd $MAIN_PATH/dev/jsunpack-n/depends/pynids-0.6.1/ directory
+        python setup.py build
+        sudo python setup.py install
         cd $MAIN_PATH/dev/jsunpack-n/depends
         tar xvfz js-1.8.0-rc1-src.tar.gz
         cd $MAIN_PATH/dev/jsunpack-n/depends/js-1.8.0-rc1-src
@@ -89,7 +121,7 @@ install_jsunpack-n() {
             echo Installing yara. . .
             cd $MAIN_PATH/dev/
             git clone https://github.com/plusvic/yara.git yara
-            cd yara
+            cd $MAIN_PATH/dev/yara
             ./bootstrap.sh
             ./configure
             make
@@ -134,13 +166,9 @@ install_libemu() {
     else
         $INST libemu2 graphviz
     fi
+}
 
 
-#libemu usage:
-# $ sctest
-# $ sctest -Ss 10000000000 -vvv < shelcodeFile
-# $ sctest -Ss 10000000000 -G graph.dot < shelcodeFile
-# dot -T png -o graph.png graph.dot
 
 
 #Install Stream
@@ -148,20 +176,11 @@ install_stream() {
     if [ -f /usr/bin/stream ]; then
         echo stream is already installed
     else
-        apt-get install imagemagick
+        $INST imagemagick
         echo stream is installed
     fi
 }
 
-
-#Install pdftk
-install_pdftk() {
-    if [ -f /usr/bin/pdftk ]; then
-        echo pdftk is already installed
-    else
-        apt-get install -y pdftk
-    fi
-}
 
 
 # Install pdftotext
@@ -169,7 +188,7 @@ install_pdftotext() {
     if [ -f /usr/bin/pdftotext ]; then
         echo pdftotext is already installed
     else
-        apt-get install -y poppler-utils
+        $INST poppler-utils
     fi
 }
 
@@ -182,6 +201,7 @@ install_pdfxray_lite() {
         cd $TOOL_PATH/pdf_analysis
         git clone https://github.com/9b/pdfxray_lite
         PATH=$PATH:$MAIN_PATH/toolbox/pdf_analysis/pdfxray_lite
+#not calling from path
     fi
 }
 
@@ -191,15 +211,16 @@ install_dssuite() {
     if [ -f $TOOL_PATH/DidierStevensSuite/pdf-parser.py ]; then
         echo didier stevens suite already installed
     else
+        cd $TOOL_PATH
         wget https://didierstevens.com/files/software/DidierStevensSuite.zip
         unzip DidierStevensSuite.zip
         rm DidierStevensSuite.zip
-        sudo chmod +x $TOOL_PATH/pdf_analysi/DidierStevensSuite/*
-        sudo chmod +x $TOOL_PATH/pdf_analysi/DidierStevensSuite/Linux/*
-        sudo chmod +x $TOOL_PATH/pdf_analysi/DidierStevensSuite/OSX/*
-        PATH=$PATH:$MAIN_PATH/toolbox/DidierStevensSuite
-        PATH=$PATH:$MAIN_PATH/toolbox/DidierStevensSuite/Linux
-        PATH=$PATH:$MAIN_PATH/toolbox/DidierStevensSuite/OSX
+        sudo chmod +x $TOOL_PATH/DidierStevensSuite/*
+        sudo chmod +x $TOOL_PATH/DidierStevensSuite/Linux/*
+        sudo chmod +x $TOOL_PATH/DidierStevensSuite/OSX/*
+        PATH=$PATH:$TOOL_PATH/DidierStevensSuite
+        PATH=$PATH:$TOOL_PATH/DidierStevensSuite/Linux
+        PATH=$PATH:$TOOL_PATH/DidierStevensSuite/OSX
     fi
 }
 
@@ -213,7 +234,6 @@ install_pdfid() {
         unzip pdfid_v0_2_1.zip -d pdfid
         chmod +x $TOOL_PATH/pdf_analysis/pdfid/pdfid.py
         rm pdfid_v0_2_1.zip
-
         PATH=$MAIN_PATH/toolbox/pdf_analysis/pdfid:$PATH
     fi
 }
@@ -261,7 +281,7 @@ install_origami() {
         echo origami tools are already installed
     else
         gem install origami
-        apt-get install ruby-gtk2
+        $INST ruby-gtk2
     fi
 }
 
@@ -282,7 +302,7 @@ install_peepdf() {
 
 # Installing officeparser.py
 install_officeparser() {
-    if [ -f $TOOL_PATH/office_analysis/officeparser.py ]; then
+    if [ -f $TOOL_PATH/office_analysis/officeparser/officeparser.py ]; then
         echo officeparsere is already installed
     else
         cd $TOOL_PATH/office_analysis
@@ -407,61 +427,16 @@ install_dnsmap() {
 }
 
 
-#install t-shark
-install_tshark() {
-    if [ -f $UB_PATH/tshark ]; then
-        echo t-shark is already installed
-    else
-        echo installing t-shark
-        $INST tshark
-    fi
-}
-
-
-#install tcpdump
-install_tcpdump() {
-    if [ -f /usr/sbin/tcpdump ]; then
-        echo tcpdump is already installed
-    else
-        echo installing tcpdump
-        $INST tcpdump
-    fi
-}
-
-
-# Installing nmap, proxychains can use nmap
-install_nmap() {
-    if [ -f $UB_PATH/nmap ]; then
-        echo nmap is already installed.
-    else
-        echo Installing nmap. . .
-        $INST nmap
-        echo nmap installation complete
-    fi
-}
-
-
-#Install proxychains
-install_proxychains() {
-    if [ -f $UB_PATH/proxychains ]; then
-        echo proxychains is already installed.
-    else
-        echo Installing proxychains. . .
-        $INST proxychains
-    fi
-}
-
-
 # unpack clamav signatures
 unpack_clamav() {
     echo Checking for clamav signatures. . .
 
-#define local variables
-CLAMDB_PATH=$MAIN_PATH/dbfiles/clamdb
-CLSIG_PATH=/var/lib/clamav
-SIGT="sigtool -u /var/lib/clamav"
-EMAIN="Unpacking clamav main.cvd signatures failed\nYou will need to run sudo apt-get install clamav-freshclam again\nAnd run sigtool -u /var/lib/clamav/main.cvd OR daily.cld"
-EDAILY="Unpacking clamav daily.cvd signatures failed\nYou will need to run sudo apt-get install clamav-freshclam again\nAnd run sigtool -u /var/lib/clamav/daily.cvd OR daily.cld"
+    #define local variables
+    CLAMDB_PATH=$MAIN_PATH/dbfiles/clamdb
+    CLSIG_PATH=/var/lib/clamav
+    SIGT="sigtool -u /var/lib/clamav"
+    EMAIN="Unpacking clamav main.cvd signatures failed\nYou will need to run sudo apt-get install clamav-freshclam again\nAnd run sigtool -u /var/lib/clamav/main.cvd OR daily.cld"
+    EDAILY="Unpacking clamav daily.cvd signatures failed\nYou will need to run sudo apt-get install clamav-freshclam again\nAnd run sigtool -u /var/lib/clamav/daily.cvd OR daily.cld"
 
 
     if [ -f $CLAMDB_PATH/main.ndb ]; then
@@ -489,8 +464,9 @@ EDAILY="Unpacking clamav daily.cvd signatures failed\nYou will need to run sudo 
             echo -e $EDAILY
         fi
     else
-        cd $CLAMDB_PATH
         echo No clamav signatures present
+        mkdir -p $MAIN_PATH/dbfiles/clamdb
+        cd $CLAMDB_PATH
         echo Unpacking clamav signatures
         if [ -f $CLSIG_PATH/main.cvd ]; then
             $SIGT/main.cvd
@@ -513,10 +489,10 @@ EDAILY="Unpacking clamav daily.cvd signatures failed\nYou will need to run sudo 
 
 #execute functions below this line
 modify_wget
+install_mwcb
 install_jsunpack-n
 install_libemu
 install_stream
-install_pdftk
 install_pdftotext
 install_pdfxray_lite
 install_dssuite
@@ -533,10 +509,6 @@ install_totalhash
 install_exescan
 install_pyew
 install_dnsmap
-install_tshark
-install_tcpdump
-install_nmap
-install_proxychains
 unpack_clamav
 
 

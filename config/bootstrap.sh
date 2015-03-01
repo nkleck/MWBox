@@ -8,7 +8,7 @@
 
 cd /vagrant #change this to whatever dir you are going to install if not using vagrant
 
-MAIN_PATH=`pwd`
+SHARE_PATH=`pwd`
 
-bash $MAIN_PATH/config/install.sh
-#bash $MAIN_PATH/config/tools.sh    #working on this script remove # when done
+bash $SHARE_PATH/config/install.sh
+bash $SHARE_PATH/config/tools.sh

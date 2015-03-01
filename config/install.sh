@@ -79,7 +79,7 @@ initial_setup() {
 # Install python
 install_python() {
     echo Installing python packages. . .
-    $INST python3-all-dev build-essential libffi-dev python-dev libfuzzy-dev python-pip python-magic python-pefile python-lxml
+    $INST python3-all-dev build-essential libffi-dev libfuzzy-dev python-pip python-magic python-pefile python-lxml libpcap-dev pkg-config python-dev libgtk2.0-dev libnet1-dev python-beautifulsoup python-crypto libpcre3 libpcre3-dev
     echo Python packages installation complete.
 }
 
@@ -157,7 +157,7 @@ install_yara() {
         echo Installing yara. . .
         cd $MAIN_PATH/dev/
         git clone https://github.com/plusvic/yara.git yara
-        cd yara
+        cd $MAIN_PATH/dev/yara
         ./bootstrap.sh
         ./configure
         make
@@ -211,7 +211,7 @@ install_ssdeep() {
         cd $MAIN_PATH/dev/
         svn checkout http://pyssdeep.googlecode.com/svn/trunk/ pyssdeep-read-only
         chown -R vagrant:vagrant pyssdeep-read-only
-        cd pyssdeep-read-only
+        cd $MAIN_PATH/dev/pyssdeep-read-only
         python setup.py build
         python setup.py install
         echo ssdeep installation complete
