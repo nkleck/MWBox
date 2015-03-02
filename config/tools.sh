@@ -81,7 +81,9 @@ install_mwcb() {
         mkdir $TOOL_PATH/mwcb
         cd $TOOL_PATH/mwcb
         svn checkout http://malwarecookbook.googlecode.com/svn/trunk/3/
+        wait
         svn checkout http://malwarecookbook.googlecode.com/svn/trunk/4/
+        wait
         mv $TOOL_PATH/mwcb/3/7/av_multiscan.py $TOOL_PATH/av_scanners
         mv $TOOL_PATH/mwcb/3/8/pescanner.py $TOOL_PATH/pe_analysis
         mv $TOOL_PATH/mwcb/3/5/capabilities.yara $TOOL_PATH/yara_scripts

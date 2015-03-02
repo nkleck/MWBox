@@ -97,11 +97,13 @@ install_clamav() {
         echo clamav is already installed
         echo Updating clamav
         $INST clamav-freshclam
+        wait
     else
         echo Installing clamav and its files. . .
         cd $MAIN_PATH/dbfiles
         mkdir clamdb
         $INST clamav clamav-freshclam clamav-testfiles
+        wait
         cd $MAIN_PATH/samples/
         mkdir clamav
         mv /usr/share/clamav-testfiles $MAIN_PATH/samples/clamav
