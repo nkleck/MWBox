@@ -86,6 +86,8 @@ initial_setup() {
 install_python() {
     echo Installing python packages. . .
     $INST python3-all-dev build-essential libffi-dev libfuzzy-dev python-pip python-magic python-pefile python-lxml libpcap-dev pkg-config python-dev libgtk2.0-dev libnet1-dev python-beautifulsoup python-crypto libpcre3 libpcre3-dev
+    pip install beautifulsoup4
+    pip install requests --upgrade
     echo Python packages installation complete.
 }
 
@@ -122,6 +124,7 @@ install_tor() {
             echo "deb http://deb.torproject.org/torproject.org trusty main" | sudo tee -a /etc/apt/sources.list
             echo "deb-src http://deb.torproject.org/torproject.org trusty main" | sudo tee -a /etc/apt/sources.list
             echo added deb http://deb.torproject.org/torproject.org trusty main to source.list
+            echo added deb-src http://deb.torproject.org/torproject.org trusty main to source.list
         fi
 
         apt-key list | grep -q "deb.torproject.org archive signing key";
