@@ -1,6 +1,9 @@
 
 This installation of vagrantbox should be useful for malware analysis. Everything in here was made from free software. Do with it what you will, make it better.
 
+#TODO
+ADD
+https://github.com/goulu/pdfminer.git
 
 # Tools in this box
 The following tools are available in this configuration, see below for usage
