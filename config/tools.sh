@@ -118,6 +118,7 @@ install_jsunpack-n() {
         cd $MAIN_PATH/dev/jsunpack-n/depends/js-1.8.0-rc1-src
         make BUILD_OPT=1 -f Makefile.ref
         PATH=$PATH:$MAIN_PATH/dev/jsunpack-n/depends/js-1.8.0-rc1-src/
+        PATH=$PATH:$MAIN_PATH/dev/jsunpack-n/
         if [ -f /usr/local/bin/yara ]; then
             echo yara is already installed
         else
