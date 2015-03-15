@@ -109,12 +109,12 @@ install_jsunpack-n() {
         cd $MAIN_PATH/dev
         svn checkout http://jsunpack-n.googlecode.com/svn/trunk/ jsunpack-n
         cd $MAIN_PATH/dev/jsunpack-n/depends
-        tar xvfz pynids-0.6.1.tar.gz
-        cd $MAIN_PATH/dev/jsunpack-n/depends/pynids-0.6.1/ directory
+        tar -xvfz pynids-0.6.1.tar.gz
+        cd $MAIN_PATH/dev/jsunpack-n/depends/pynids-0.6.1/ 
         python setup.py build
         sudo python setup.py install
         cd $MAIN_PATH/dev/jsunpack-n/depends
-        tar xvfz js-1.8.0-rc1-src.tar.gz
+        tar -xvfz js-1.8.0-rc1-src.tar.gz
         cd $MAIN_PATH/dev/jsunpack-n/depends/js-1.8.0-rc1-src
         make BUILD_OPT=1 -f Makefile.ref
         PATH=$PATH:$MAIN_PATH/dev/jsunpack-n/depends/js-1.8.0-rc1-src/
