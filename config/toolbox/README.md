@@ -3,7 +3,8 @@ This installation of vagrantbox should be useful for malware analysis. Everythin
 
 #TODO
 ADD
-https://github.com/goulu/pdfminer.git
+- https://github.com/goulu/pdfminer.git
+- https://github.com/mozilla/masche.git
 
 # Tools in this box
 The following tools are available in this configuration, see below for usage
