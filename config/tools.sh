@@ -210,6 +210,36 @@ install_pdfxray_lite() {
 }
 
 
+#install peepdf - extracts javascript from pdf's
+#install_peepdf() {
+
+#install pyv8
+#sudo apt-get install scons
+#svn checkout http://v8.googlecode.com/svn/trunk/ v8
+#svn checkout http://pyv8.googlecode.com/svn/trunk/ pyv8
+#cd v8
+#export PyV8=`pwd`
+#cd ../pyv8
+#python setup.py build
+#python setup.py install
+
+
+#install pylibemu
+#aptitude install python-setuptools
+#cd $MAIN_PATH/dev
+#git clone https://github.com/buffer/pylibemu.git
+#cd $MAIN_PATH/pylibemu
+#python setup.py build
+#python setup.py install
+
+#install peepdf
+#wget http://eternal-todo.com/files/pdf/peepdf/peepdf_0.3.tar.gz
+#tar -xzvf peepdf_0.3.tar.gz
+#cd peepdf_0.3
+
+#usage ./peepdf.py <pdf_file>
+
+
 #install didierstevens suite
 install_dssuite() {
     if [ -f $TOOL_PATH/DidierStevensSuite/pdf-parser.py ]; then
@@ -499,17 +529,18 @@ install_libemu
 install_stream
 install_pdftotext
 install_pdfxray_lite
+#install_peepdf - couldnt figure out installation yet
 install_dssuite
-#install_pdfid
+#install_pdfid - included in other packages
 install_AnalyzePDF
 install_origami
-#install_pdfparser
+#install_pdfparser - included in other packages
 install_peepdf
 install_officeparser
 install_officemalscanner
 install_totalhash
-#install_xorstrings
-#install_xorsearch
+#install_xorstrings - included in other packages
+#install_xorsearch - included in other packages
 install_exescan
 install_pyew
 install_dnsmap
