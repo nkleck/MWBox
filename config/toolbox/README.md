@@ -5,6 +5,8 @@ This installation of vagrantbox should be useful for malware analysis. Everythin
 ADD
 - https://github.com/goulu/pdfminer.git
 - https://github.com/mozilla/masche.git
+- http://eternal-todo.com/var/scripts/xorbruteforcer
+- https://github.com/hiddenillusion/NoMoreXOR
 
 # Tools in this box
 The following tools are available in this configuration, see below for usage
@@ -169,10 +171,14 @@ Officeparser
 - 
 
 
-# File Analysis
+# File Obfuscation
 
 - Good read on XOR malware
 - http://digital-forensics.sans.org/blog/2013/05/14/tools-for-examining-xor-obfuscation-for-malware-analysis
+
+XORBruteForcer
+- $ xorBruteForcer -k xor_key file [search_pattern]
+- k and key xor_key optional. will run all possibilities if not specified
 
 XORStrings
 - use the output into a file, because wine dickers up a bit and can be difficult to read
@@ -182,6 +188,11 @@ XORSearch
 - does not require wine, but can run with wine --not recommended
 - $ xorsearch [-option] <file> string|hex|rule
 - can output to results by adding to the end  >> output.txt
+
+NoMoreXOR
+- $  NoMoreXOR.py -a -o output.hex inputfile
+
+# File Analysis
 
 objdump 
 - examines .o and a.out(files without extensions) and executable file(s)
