@@ -171,6 +171,9 @@ Officeparser
 
 # File Analysis
 
+- Good read on XOR malware
+- http://digital-forensics.sans.org/blog/2013/05/14/tools-for-examining-xor-obfuscation-for-malware-analysis
+
 XORStrings
 - use the output into a file, because wine dickers up a bit and can be difficult to read
 - $ wine xorstrings.exe -m <path to file> >> output.txt
