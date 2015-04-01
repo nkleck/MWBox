@@ -237,6 +237,7 @@ libemu usage:
 # Jsunpack-n usage
 - extract HTTP files from pcap
     - $ ./jsunpackn.py ./file.pcap -s -J -v
+    - really cool. they are in the tmp dir
 - run against malicious pdf
     - $ ./jsunpackn.py -V <pdf>
 - evaluate javascript
