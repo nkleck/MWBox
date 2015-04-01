@@ -234,7 +234,13 @@ libemu usage:
 - $ sctest -Ss 10000000000 -G graph.dot < shelcodeFile
 - $ dot -T png -o graph.png graph.dot
 
-
+# Jsunpack-n usage
+- extract HTTP files from pcap
+    - $ ./jsunpackn.py ./file.pcap -s -J -v
+- run against malicious pdf
+    - $ ./jsunpackn.py -V <pdf>
+- evaluate javascript
+    - $ ./jsunpackn.py -f -V <pdf>
 
 
 
