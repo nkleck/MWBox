@@ -165,7 +165,14 @@ OfficeMalScanner
 - requires wine to run, its an .exe, wine is installed in the install.sh script
 - usage: wine OfficeMalScanner <PPT, DOC or XLS file> <scan | info> <brute> <debug>
 - help: wine OfficeMalScanner
-- typical usage: wine OfficeMalScanner <file> scan >> output.txt
+- typical usage: 
+    -  $ wine OfficeMalScanner <file> info
+    -  $ wine OfficeMalScanner <file> scan brute debug
+-  find the start of shellcode in doc file
+    -  $ wine DisView.exe <file> 0xa00
+-  Wrap shellcode in executable
+    -  $ wine MalHost-Setup.exe <file> out.exe 0xa04 //start of shellcode found in DisView search
+    -  send out.ext to a debugger
 
 Officeparser
 - 
