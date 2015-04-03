@@ -173,6 +173,16 @@ OfficeMalScanner
 -  Wrap shellcode in executable
     -  $ wine MalHost-Setup.exe <file> out.exe 0xa04 //start of shellcode found in DisView search
     -  send out.ext to a debugger
+    -  
+
+oledump.py
+- find macros and extract
+    - $ oledump.py file.doc
+    - look at output and lines with M indicate macros present
+    - $ oledump.py -s <insert line number> file.doc
+    - outputs the macro stream in ascii
+    - $ oledump.py -s # -v file.doc
+    - look specifically at the each macro #=line number containing macro
 
 Officeparser
 - 
@@ -234,7 +244,14 @@ libemu usage:
 - $ sctest -Ss 10000000000 -G graph.dot < shelcodeFile
 - $ dot -T png -o graph.png graph.dot
 
-
+# Jsunpack-n usage
+- extract HTTP files from pcap
+    - $ ./jsunpackn.py ./file.pcap -s -J -v
+    - really cool. they are in the tmp dir
+- run against malicious pdf
+    - $ ./jsunpackn.py -V <pdf>
+- evaluate javascript
+    - $ ./jsunpackn.py -f -V <pdf>
 
 
 
