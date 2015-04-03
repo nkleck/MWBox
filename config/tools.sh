@@ -215,6 +215,7 @@ install_dssuite() {
     if [ -f $TOOL_PATH/DidierStevensSuite/pdf-parser.py ]; then
         echo didier stevens suite already installed
     else
+        sudo easy_install olefile
         cd $TOOL_PATH
         wget https://didierstevens.com/files/software/DidierStevensSuite.zip
         unzip DidierStevensSuite.zip
