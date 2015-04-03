@@ -173,6 +173,16 @@ OfficeMalScanner
 -  Wrap shellcode in executable
     -  $ wine MalHost-Setup.exe <file> out.exe 0xa04 //start of shellcode found in DisView search
     -  send out.ext to a debugger
+    -  
+
+oledump.py
+- find macros and extract
+    - $ oledump.py file.doc
+    - look at output and lines with M indicate macros present
+    - $ oledump.py -s <insert line number> file.doc
+    - outputs the macro stream in ascii
+    - $ oledump.py -s # -v file.doc
+    - look specifically at the each macro #=line number containing macro
 
 Officeparser
 - 
