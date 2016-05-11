@@ -2,9 +2,9 @@
 ###
 #
 # This script will install a number of programs into a fresh build of vagrant
-# 
+#
 # RUN AS sudo
-# 
+#
 # This script is tested on Linux (Ubuntu/Trusty) in a Vagrantbox
 #
 #
@@ -134,6 +134,9 @@ install_tor() {
                 gpg --keyserver keys.gnupg.net --recv 886DDD89
                 if [ $? -ne 0 ]; then
                     gpg --keyserver pool.sks-keyservers.net --recv 886dDD89
+                    if [ $? -ne 0]; then
+                        gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 886DDD89
+                    fi
                 fi
             fi
         fi
